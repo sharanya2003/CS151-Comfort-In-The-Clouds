@@ -5,18 +5,18 @@
 **Creating a user-friendly application to construct and organize typical airplane seating arrangements.**
 
 
-_Issues Tackled:
+_Issues Tackled_:
 * comfort priorities (window seating, aisle seating, long-leg seating, etc)
 * seating placement (if there is an open seating at preferred location)
 * luxury preferences (economy class, business class, first class)
 
-_Technologies Used:
+_Technologies Used_:
 * Front-end: JavaScript, HTML, CSS
 * Back-end: Java
 * Frameworks: SpringBoot
 * Computing Platform: Swing GUI
 
-_Java Object Oriented Programming and Data Structures Concepts Used:
+_Java Object Oriented Programming and Data Structures Concepts Used_:
 * Abstract Class: Airplane
 * Inheritance: Economic, Business, First --> extends Airplane
 * Enum: WINDOW, MIDDLE, AISLE

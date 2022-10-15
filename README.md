@@ -1,12 +1,12 @@
 # ✈ --- ✈ --- ✈ CS151-Comfort-In-The-Clouds ✈ --- ✈ --- ✈ 
 
-<br/>
+<br />
  ✈ --- ✈ Sharanya Udupa, Keerthanaa Ellur, Mohd Ifranul Hoque • Group #8  ✈ --- ✈ 
 
-<br/>
+<br />
 
 ☁ ☁ ☁
-<br/>
+<br />
 
 **Creating a user-friendly application to construct and organize typical airplane seating arrangements.**
 
@@ -40,6 +40,7 @@ _Intended Operations_
 
 _References_
 [1] https://www.youtube.com/watch?v=Kmgo00avvEw&t=1085s&ab_channel=BroCode
+<br />
 [2] https://code-projects.org/simple-parking-lot-in-javascript-with-source-code/
 
 

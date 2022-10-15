@@ -6,6 +6,7 @@
 <br/>
 
 ☁ ☁ ☁
+<br/>
 
 **Creating a user-friendly application to construct and organize typical airplane seating arrangements.**
 

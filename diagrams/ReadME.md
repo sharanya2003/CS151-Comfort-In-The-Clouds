@@ -14,7 +14,7 @@
 
 | Diagram       | Description                                                                    | 
 | ------------- |:-------------:                                                                 | 
-| Class         | We are creating an abstract Airplane class that counts the number of luggages which implemets enum position.                   | 
+| Class         | There is an abstract Airplane class that counts the number of luggages, tickets which implemets enum position. The Airplane class is extended by the business, economy and first class                 | 
 | Use Case      | centered                                                                       |   
 | State         | are neat                                                                       | 
 | Timing        |                                                                                |

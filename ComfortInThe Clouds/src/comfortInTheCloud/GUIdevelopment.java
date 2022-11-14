@@ -3,18 +3,25 @@ package comfortInTheCloud;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class GUIdevelopment implements ActionListener{
 	
@@ -28,7 +35,7 @@ public class GUIdevelopment implements ActionListener{
 	JPanel checkoutPanel = new JPanel();
 	JPanel successPanel = new JPanel();
 	
-	//contents in welcomePage
+	//components in welcome page
     JLabel welcomePageTitle;
     JLabel welcomePageBio1;
     JLabel welcomePageBio2;
@@ -37,9 +44,25 @@ public class GUIdevelopment implements ActionListener{
     JButton welcomePageSignUpButton;
     JButton welcomePageLoginButton;
     JLabel welcomePageFooter;
-	
     ImageIcon welcomePageImage;
 	JLabel welcomePageImageLabel;
+	
+	//components in sign up page
+	JLabel signUpPageHeaderLabel;
+	JLabel signUpPageFirstNameLabel;
+	JLabel signUpPageLastNameLabel;
+	JLabel signUpPageEmailLabel;
+	JLabel signUpPagePasswordLabel;
+	JLabel signUpPageRetypePasswordLabel;
+	JTextField signUpPageFirstNameEntry;
+	JTextField signUpPageLastNameEntry;
+	JTextField signUpPageEmailEntry;
+	JPasswordField signUpPagePasswordEntry;
+	JPasswordField signUpPageRetypePasswordEntry;
+	JButton signUpPageSubmitButton;
+	JButton signUpPageButtonRedirectToLogin;
+	JButton signUpPageButtonRedirectToHome;
+	
 	
 	//constructor
 	public GUIdevelopment() throws IOException {
@@ -55,7 +78,6 @@ public class GUIdevelopment implements ActionListener{
 //		welcomePageImageLabel.setIcon(welcomePageImage);
 //		mainFrame.add(welcomePageImageLabel);
 //		mainFrame.pack();	
-		
 		
 		//creating the welcome page
 		welcomePanel.setBackground(Color.pink);
@@ -158,6 +180,7 @@ public class GUIdevelopment implements ActionListener{
 		
 		//call your methods that load the page here
 		signUpPageSetUp();
+		loginPageSetUp();
 		
 		
 		
@@ -169,16 +192,165 @@ public class GUIdevelopment implements ActionListener{
 
 		if(ae.getSource() == this.welcomePageSignUpButton) {
 			signUpPanel.setVisible(true);
-			welcomePanel.setVisible(false); //change mypanel name to welcomepanel
+			welcomePanel.setVisible(false);
 	        signUpPanel.setLayout(null);
 	        mainFrame.add(signUpPanel);
 	        mainFrame.remove(welcomePanel);
 		}
+		
+		if(ae.getSource() == this.welcomePageLoginButton) {
+			this.loginPanel.setVisible(true);
+			this.welcomePanel.setVisible(false);
+			this.loginPanel.setLayout(null);
+			mainFrame.add(loginPanel);
+			mainFrame.remove(welcomePanel);
+		}
+		
+		if(ae.getSource() == this.signUpPageButtonRedirectToLogin) {
+			this.loginPanel.setVisible(true);
+			signUpPanel.setVisible(false);
+			loginPanel.setLayout(null);
+			mainFrame.add(loginPanel);
+			mainFrame.remove(signUpPanel);
+		}
+		
+		if(ae.getSource() == signUpPageButtonRedirectToHome) {
+			welcomePanel.setVisible(true);
+			signUpPanel.setVisible(false);
+			welcomePanel.setLayout(null);
+			mainFrame.add(welcomePanel);
+			mainFrame.remove(signUpPanel);
+		}
 	}
 	
 	
+	
+	//methods for every page
+	
+	
 	public void signUpPageSetUp() {
-		signUpPanel.setBackground(Color.pink);
-		//logic and UI stuff go here
+		signUpPanel.setBackground(Color.decode("#b992e8"));		
+		//header
+		signUpPageHeaderLabel = new JLabel("SIGN UP");
+		signUpPageHeaderLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 25));
+		signUpPageHeaderLabel.setBounds(330,0,300,90);
+		signUpPanel.add(signUpPageHeaderLabel);
+		
+		//first name: label + entry
+		signUpPageFirstNameLabel = new JLabel("First Name");
+		signUpPageFirstNameLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPageFirstNameLabel.setBounds(100,55,150,90);
+		signUpPanel.add(signUpPageFirstNameLabel);
+		
+		signUpPageFirstNameEntry = new JTextField();
+		signUpPageFirstNameEntry.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPageFirstNameEntry.setBorder(BorderFactory.createLineBorder(Color.white));
+		signUpPageFirstNameEntry.setBackground(Color.pink);
+		signUpPageFirstNameEntry.setBounds(250,80,350, 40);
+		signUpPanel.add(signUpPageFirstNameEntry);
+		
+		
+		//last name: label + entry
+		signUpPageLastNameLabel = new JLabel("Last Name");
+		signUpPageLastNameLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPageLastNameLabel.setBounds(100,115,150,90);
+		signUpPanel.add(signUpPageLastNameLabel);
+		
+		signUpPageLastNameEntry = new JTextField();
+		signUpPageLastNameEntry.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPageLastNameEntry.setBorder(BorderFactory.createLineBorder(Color.white));
+		signUpPageLastNameEntry.setBackground(Color.pink);
+		signUpPageLastNameEntry.setBounds(250,140,350, 40);
+		signUpPanel.add(signUpPageLastNameEntry);
+		
+		
+		//email: label + entry
+		this.signUpPageEmailLabel = new JLabel("Email");
+		signUpPageEmailLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPageEmailLabel.setBounds(125,175,150,90);
+		signUpPanel.add(signUpPageEmailLabel);
+		
+		signUpPageEmailEntry = new JTextField();
+		signUpPageEmailEntry.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPageEmailEntry.setBorder(BorderFactory.createLineBorder(Color.white));
+		signUpPageEmailEntry.setBackground(Color.pink);
+		signUpPageEmailEntry.setBounds(250,200,350, 40);
+		signUpPanel.add(signUpPageEmailEntry);
+		
+		
+		//pwd: label + entry
+		this.signUpPagePasswordLabel = new JLabel("Password");
+		signUpPagePasswordLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPagePasswordLabel.setBounds(110,235,150,90);
+		signUpPanel.add(signUpPagePasswordLabel);
+		
+		this.signUpPagePasswordEntry = new JPasswordField();
+		signUpPagePasswordEntry.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPagePasswordEntry.setBorder(BorderFactory.createLineBorder(Color.white));
+		signUpPagePasswordEntry.setBackground(Color.pink);
+		signUpPagePasswordEntry.setBounds(250,260,350, 40);
+		signUpPanel.add(signUpPagePasswordEntry);
+		
+		
+		//retype pwd: label + entry
+		this.signUpPageRetypePasswordLabel = new JLabel("Retype Password");
+		signUpPageRetypePasswordLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPageRetypePasswordLabel.setBounds(50,295,250,90);
+		signUpPanel.add(signUpPageRetypePasswordLabel);
+		
+		this.signUpPageRetypePasswordEntry = new JPasswordField();
+		signUpPageRetypePasswordEntry.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		signUpPageRetypePasswordEntry.setBorder(BorderFactory.createLineBorder(Color.white));
+		signUpPageRetypePasswordEntry.setBackground(Color.pink);
+		signUpPageRetypePasswordEntry.setBounds(250,320,350, 40);
+		signUpPanel.add(signUpPageRetypePasswordEntry);
+		
+		
+		//submit button (with color changing effects)
+		
+		this.signUpPageSubmitButton = new JButton("LOGIN HERE:");
+		signUpPageSubmitButton.setBounds(300, 390, 150, 40);
+		signUpPageSubmitButton.setBackground(Color.pink);
+		signUpPageSubmitButton.setForeground(Color.black);
+		signUpPageSubmitButton.addActionListener(this);
+		signUpPanel.add(signUpPageSubmitButton);
+		
+		signUpPageSubmitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	signUpPageSubmitButton.setBackground(Color.black);
+		    	signUpPageSubmitButton.setForeground(Color.white);
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	signUpPageSubmitButton.setBackground(UIManager.getColor("control"));
+		    	signUpPageSubmitButton.setBackground(Color.pink);
+		    	signUpPageSubmitButton.setForeground(Color.black);
+		    }
+		});
+		
+		//redirect to login page
+		this.signUpPageButtonRedirectToLogin = new JButton("Already a user? Login");
+		signUpPageButtonRedirectToLogin.setBounds(430, 395, 200, 30);
+		signUpPageButtonRedirectToLogin.setForeground(Color.white);
+		signUpPageButtonRedirectToLogin.addActionListener(this);
+		signUpPageButtonRedirectToLogin.setOpaque(false);
+		signUpPageButtonRedirectToLogin.setContentAreaFilled(false);
+		signUpPageButtonRedirectToLogin.setBorderPainted(false);
+		signUpPanel.add(signUpPageButtonRedirectToLogin);
+		
+		//redirect to home page
+		this.signUpPageButtonRedirectToHome = new JButton("✈ CITC HOME ✈");
+		signUpPageButtonRedirectToHome.setBounds(-30, 0, 200, 30);
+		signUpPageButtonRedirectToHome.setForeground(Color.white);
+		signUpPageButtonRedirectToHome.addActionListener(this);
+		signUpPageButtonRedirectToHome.setOpaque(false);
+		signUpPageButtonRedirectToHome.setContentAreaFilled(false);
+		signUpPageButtonRedirectToHome.setBorderPainted(false);
+		signUpPanel.add(signUpPageButtonRedirectToHome);
+	}
+	
+	
+	public void loginPageSetUp() {
+		loginPanel.setBackground(Color.decode("#b992e8"));		
 	}
 }

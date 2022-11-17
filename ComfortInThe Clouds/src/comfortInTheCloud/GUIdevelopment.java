@@ -62,6 +62,7 @@ public class GUIdevelopment implements ActionListener{
 	JButton signUpPageSubmitButton;
 	JButton signUpPageButtonRedirectToLogin;
 	JButton signUpPageButtonRedirectToHome;
+	JLabel signUpPageErrorMessage;
 	
 	
 	//constructor
@@ -190,6 +191,7 @@ public class GUIdevelopment implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		//Organizing from welcome page to other pages!
 
+		// welcome page -> sign up page
 		if(ae.getSource() == this.welcomePageSignUpButton) {
 			signUpPanel.setVisible(true);
 			welcomePanel.setVisible(false);
@@ -198,6 +200,7 @@ public class GUIdevelopment implements ActionListener{
 	        mainFrame.remove(welcomePanel);
 		}
 		
+		// welcome page -> login page
 		if(ae.getSource() == this.welcomePageLoginButton) {
 			this.loginPanel.setVisible(true);
 			this.welcomePanel.setVisible(false);
@@ -206,6 +209,7 @@ public class GUIdevelopment implements ActionListener{
 			mainFrame.remove(welcomePanel);
 		}
 		
+		// sign up page -> login page
 		if(ae.getSource() == this.signUpPageButtonRedirectToLogin) {
 			this.loginPanel.setVisible(true);
 			signUpPanel.setVisible(false);
@@ -214,6 +218,7 @@ public class GUIdevelopment implements ActionListener{
 			mainFrame.remove(signUpPanel);
 		}
 		
+		//sign up page -> welcome page
 		if(ae.getSource() == signUpPageButtonRedirectToHome) {
 			welcomePanel.setVisible(true);
 			signUpPanel.setVisible(false);
@@ -221,13 +226,29 @@ public class GUIdevelopment implements ActionListener{
 			mainFrame.add(welcomePanel);
 			mainFrame.remove(signUpPanel);
 		}
+		
+		if(ae.getSource() == this.signUpPageSubmitButton) {
+			//user info
+			  String signUppwd = String.valueOf(this.signUpPagePasswordEntry.getPassword());
+			  String signUpretype = String.valueOf(this.signUpPageRetypePasswordEntry.getPassword());
+	   		  String fname = this.signUpPageFirstNameEntry.getText().trim();
+	  		  String lname = this.signUpPageLastNameEntry.getText().trim();
+	  		  String email = this.signUpPageEmailEntry.getText().trim();
+	  		  
+	  		  if(signUppwd.length()==0 || signUpretype.length()==0 || fname.length()==0 || email.length()==0) {
+	  			  this.signUpPageErrorMessage = new JLabel("Fill in all of the fields");
+	  		  }
+	  		  else if(!signUppwd.equals(signUpretype)) {
+	  			  this.signUpPageErrorMessage.setText("Passwords don't match");
+	  		  }
+	  		  
+	  		  System.out.println(signUppwd + signUpretype + fname + lname + email);
+		}
 	}
 	
 	
 	
 	//methods for every page
-	
-	
 	public void signUpPageSetUp() {
 		signUpPanel.setBackground(Color.decode("#b992e8"));		
 		//header
@@ -347,6 +368,17 @@ public class GUIdevelopment implements ActionListener{
 		signUpPageButtonRedirectToHome.setContentAreaFilled(false);
 		signUpPageButtonRedirectToHome.setBorderPainted(false);
 		signUpPanel.add(signUpPageButtonRedirectToHome);
+		
+		//error message
+		//potential messages: 
+		//fields not filled
+		//pwd != retypePwd
+		//pwd not strong enough
+		signUpPageErrorMessage = new JLabel();
+		signUpPageErrorMessage.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		this.signUpPageErrorMessage.setForeground(Color.white);
+		signUpPageErrorMessage.setBounds(300, 410, 500, 30);
+		signUpPanel.add(signUpPageErrorMessage);
 	}
 	
 	

@@ -2,9 +2,13 @@ package comfortInTheCloud;
 
 public class SeatFactory {
 	
+	
+	private static SeatFactory instance = null;
+	//constructor
 	private SeatFactory() {
 		
 	}
+	
 	
 	public Seat createSeat(int r, int c) {
 		Seat seat;
@@ -39,8 +43,11 @@ public class SeatFactory {
 		return seat;
 	}
 	
-	public static SeatFactory getSeatFactory() {
-		return this;
+	public static SeatFactory getInstance() {
+		 if(instance==null) {
+			 instance = new SeatFactory();
+		 }
+		 return instance;
 		
 	}
 

@@ -10,7 +10,8 @@ public class AirplaneBoard {
 	 * 
 	 * everything in the A row (ie where planeBoard[i][0]) is 20 dollars more because its window seat
 	 * everything in row 1, row 5, row 12 start a new row (have more leg room) so it is 10 dollars more because it is long-legged seating
-	 * 	A B C D
+	 * 	
+	 * A B C D
 		N N N N 1
 		N N N N 2
 		N P N N 3
@@ -31,7 +32,6 @@ public class AirplaneBoard {
 		N N N N 18
 		N P N N 19
 		N N N N 20 //rest are economy
-
 	 * 
 	 * 
 	 * 
@@ -43,7 +43,7 @@ public class AirplaneBoard {
 		
 		for(int r=0; r<planeBoard.length; r++) {
 			for(int c=0; c<planeBoard[r].length; c++) {
-				planeBoard[r][c] = SeatFactory.getSeatFactory().createSeat(r, c);
+				planeBoard[r][c] = SeatFactory.getInstance().createSeat(r, c);
 			}
 		}
 

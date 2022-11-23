@@ -1,18 +1,23 @@
 package comfortInTheCloud;
 
-public abstract class Seat {
+public abstract class Seat extends BaseModel{
 	private Person person;
 	public abstract double getPrice();	
-	private boolean window = false;
-	private boolean longLeg = false;
+	private final boolean window;
+	private final boolean longLeg;
 	
 	
-	
+	public Seat(boolean window, boolean longLeg) {
+		super();
+		this.person = null;
+		this.window = window;
+		this.longLeg = longLeg;
+	}
+
 	public double getExtraPrice() {
 		return (isLongLeg() ? 20 : 0) + (isWindow() ? 10: 0);
 	}
 	
-
 	
 	public boolean isEmpty() {
 		return this.getPerson()==null;
@@ -24,6 +29,7 @@ public abstract class Seat {
 	
 	public void setPerson(Person p) {
 		this.person = p;
+		dispatch();
 	}
 	
 	public abstract String seatInfo();
@@ -36,19 +42,8 @@ public abstract class Seat {
 
 
 
-	public void setWindow() {
-		this.window = true;
-	}
-
-
 
 	public boolean isLongLeg() {
 		return longLeg;
-	}
-
-
-
-	public void setLongLeg() {
-		this.longLeg = true;
 	}
 }

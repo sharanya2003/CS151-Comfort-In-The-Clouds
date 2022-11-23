@@ -2,6 +2,11 @@ package comfortInTheCloud;
 
 //singleton: one FirstSeat's alteration alters all the first class seats!
 public class FirstSeat extends Seat{
+	public FirstSeat(boolean window, boolean longLeg) {
+		super(window, longLeg);
+		// TODO Auto-generated constructor stub
+	}
+
 	private static double price = 5000;
 	
 	public double getPrice() {

@@ -46,6 +46,5 @@ public class AirplaneBoard {
 				planeBoard[r][c] = SeatFactory.getInstance().createSeat(r, c);
 			}
 		}
-
 	}
 }

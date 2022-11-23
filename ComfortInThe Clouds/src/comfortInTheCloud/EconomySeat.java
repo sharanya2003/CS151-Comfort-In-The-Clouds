@@ -2,6 +2,11 @@ package comfortInTheCloud;
 
 //singleton: one EconomySeat;s alteration alters all the economy seats!
 public class EconomySeat extends Seat{
+	public EconomySeat(boolean window, boolean longLeg) {
+		super(window, longLeg);
+		// TODO Auto-generated constructor stub
+	}
+
 	private static double price = 100;
 	public double getPrice() {
 		return EconomySeat.price;

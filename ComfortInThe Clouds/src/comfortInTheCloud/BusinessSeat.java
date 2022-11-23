@@ -2,6 +2,13 @@ package comfortInTheCloud;
 
 //singleton: one BusinessSeat's alteration alters all the business seats!
 public class BusinessSeat extends Seat{
+	public BusinessSeat(boolean window, boolean longLeg) {
+		super(window, longLeg);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	private static double price = 500;
 	
 	public double getPrice() {

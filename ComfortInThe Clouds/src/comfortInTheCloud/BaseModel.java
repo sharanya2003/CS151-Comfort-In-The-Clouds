@@ -16,11 +16,11 @@ public class BaseModel{
 	
 	public void add(ChangeListener cl) {
 		listeners.add(cl);
+		
 	}
 	
 	public void add(ChangeListener cl, boolean immediate) {
 		add(cl);
-		
 		if (immediate) {
 			cl.stateChanged(new ChangeEvent(this));
 		}

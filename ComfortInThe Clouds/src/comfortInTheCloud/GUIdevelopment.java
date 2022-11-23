@@ -2,12 +2,15 @@ package comfortInTheCloud;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -65,6 +68,12 @@ public class GUIdevelopment implements ActionListener{
 	JLabel signUpPageErrorMessage;
 	
 	
+	//components in login page
+	JButton loginPageButtonRedirectToPlane;
+	
+	private final MainModel mainModel;
+	
+	
 	//constructor
 	public GUIdevelopment() throws IOException {
 		//have welcomePage code here set up as default so when the code runs, it has a base to go off of
@@ -79,7 +88,7 @@ public class GUIdevelopment implements ActionListener{
 //		welcomePageImageLabel.setIcon(welcomePageImage);
 //		mainFrame.add(welcomePageImageLabel);
 //		mainFrame.pack();	
-		
+		mainModel = new MainModel();
 		//creating the welcome page
 		welcomePanel.setBackground(Color.pink);
 		welcomePanel.setLayout(null);
@@ -182,6 +191,7 @@ public class GUIdevelopment implements ActionListener{
 		//call your methods that load the page here
 		signUpPageSetUp();
 		loginPageSetUp();
+		seatManagerPageSetUp();
 		
 		
 		
@@ -243,6 +253,15 @@ public class GUIdevelopment implements ActionListener{
 	  		  }
 	  		  
 	  		  System.out.println(signUppwd + signUpretype + fname + lname + email);
+		}
+		
+		
+		if(ae.getSource() == loginPageButtonRedirectToPlane) {
+			seatManagerPanel.setVisible(true);
+			loginPanel.setVisible(false);
+//			seatManagerPanel.setLayout(null);
+			mainFrame.add(seatManagerPanel);
+			mainFrame.remove(loginPanel);
 		}
 	}
 	
@@ -383,6 +402,47 @@ public class GUIdevelopment implements ActionListener{
 	
 	
 	public void loginPageSetUp() {
-		loginPanel.setBackground(Color.decode("#b992e8"));		
+		loginPanel.setBackground(Color.decode("#b992e8"));	
+		
+		
+		//login -> seat manager
+		loginPageButtonRedirectToPlane = new JButton ("Proceed to Plane");
+		loginPageButtonRedirectToPlane.setBounds(300, 390, 350, 40);
+		loginPageButtonRedirectToPlane.setBackground(Color.pink);
+		loginPageButtonRedirectToPlane.setForeground(Color.black);
+		loginPageButtonRedirectToPlane.addActionListener(this);
+		loginPanel.add(loginPageButtonRedirectToPlane);
+
+	}
+	
+	public void seatManagerPageSetUp() {
+		
+		String letters = "ABCD";
+		
+		ArrayList<JButton> seats = new ArrayList <>();
+		
+//		Map <JButton, Seat> linker = new HashMap<>();
+		seatManagerPanel = new JPanel(new GridLayout(20,4));
+		this.seatManagerPanel.setBackground(Color.pink);
+
+		
+//		var map = new GridLayout(4,20);
+//	    seatManagerPanel.setLayout(map);
+//	    seatManagerPanel.setSize(500, 500);
+	    
+	    for (int i = 0; i < 4 * 20; i++) {
+	    	int index = i;
+	    	ArrayList<Seat> modelSeats = mainModel.getSeats();
+	    	//"%2s%s" lines each button up with a padding of 2
+	    	SeatButton seat = new SeatButton(modelSeats.get(i), String.format("%2s%s",Integer.toString((i/4) + 1),letters.charAt(i%4)));
+	    	seat.addActionListener(event -> {
+	    		mainModel.getSeats().get(index).setPerson(new Person("Noah", "Cardoza", "noahcardoza@gmail.com", "lolyouthought"));
+	    	});
+	      
+	      seat.setSize(30, 30);	      
+//	      map.addLayoutComponent("Seat" + i, seat);
+	      seatManagerPanel.add(seat);
+	    }
+	   
 	}
 }

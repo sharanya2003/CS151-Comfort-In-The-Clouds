@@ -12,32 +12,23 @@ public class SeatFactory {
 	
 	public Seat createSeat(int r, int c) {
 		Seat seat;
+		
+		boolean window = c==0;
+		boolean legRoom = r==1 || r==5 || r==12;
 		//differentiate first class seat
 		if(r<5) {
-			seat = new FirstSeat();
+			seat = new FirstSeat(window, legRoom);
 		}
 		
 		//differentiate business seat price
 		if(r>=5 && r<11) {
-			seat = new BusinessSeat();
+			seat = new BusinessSeat(window, legRoom);
 		}
 		//differentiate economy seat class
 		else {
-			seat = new EconomySeat();
+			seat = new EconomySeat(window, legRoom);
 		}
-		
-		
-		//differentiate window
-		if(c==0) {
-			seat.setWindow();
-		}
-		
-		
-		//differentiate long-leg
-		
-		if(r==1 || r==5 || r==12) {
-			seat.setLongLeg();
-		}
+
 		
 		
 		return seat;

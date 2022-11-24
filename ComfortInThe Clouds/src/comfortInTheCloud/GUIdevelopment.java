@@ -2,12 +2,17 @@ package comfortInTheCloud;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -18,12 +23,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-public class GUIdevelopment implements ActionListener{
+public class GUIdevelopment implements ActionListener, ChangeListener{
 	
 	JFrame mainFrame = new JFrame("✈ ✈ ✈ Comfort In the Clouds ✈ ✈ ✈ "); //will have one frame that swiches from panel to panel
 	
@@ -65,6 +73,12 @@ public class GUIdevelopment implements ActionListener{
 	JLabel signUpPageErrorMessage;
 	
 	
+	//components in login page
+	JButton loginPageButtonRedirectToPlane;
+	
+	private final MainModel mainModel;
+	
+	
 	//constructor
 	public GUIdevelopment() throws IOException {
 		//have welcomePage code here set up as default so when the code runs, it has a base to go off of
@@ -79,7 +93,8 @@ public class GUIdevelopment implements ActionListener{
 //		welcomePageImageLabel.setIcon(welcomePageImage);
 //		mainFrame.add(welcomePageImageLabel);
 //		mainFrame.pack();	
-		
+		mainModel = new MainModel();
+		new SeatInfo(mainModel);
 		//creating the welcome page
 		welcomePanel.setBackground(Color.pink);
 		welcomePanel.setLayout(null);
@@ -174,7 +189,7 @@ public class GUIdevelopment implements ActionListener{
 		
 		
 		//main frame setup	
-		mainFrame.setSize(780,510);
+		mainFrame.setSize(780,610);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 		mainFrame.add(welcomePanel);
@@ -182,6 +197,7 @@ public class GUIdevelopment implements ActionListener{
 		//call your methods that load the page here
 		signUpPageSetUp();
 		loginPageSetUp();
+		seatManagerPageSetUp();
 		
 		
 		
@@ -243,6 +259,15 @@ public class GUIdevelopment implements ActionListener{
 	  		  }
 	  		  
 	  		  System.out.println(signUppwd + signUpretype + fname + lname + email);
+		}
+		
+		
+		if(ae.getSource() == loginPageButtonRedirectToPlane) {
+			seatManagerPanel.setVisible(true);
+			loginPanel.setVisible(false);
+//			seatManagerPanel.setLayout(null);
+			mainFrame.add(seatManagerPanel);
+			mainFrame.remove(loginPanel);
 		}
 	}
 	
@@ -383,6 +408,138 @@ public class GUIdevelopment implements ActionListener{
 	
 	
 	public void loginPageSetUp() {
-		loginPanel.setBackground(Color.decode("#b992e8"));		
+		loginPanel.setBackground(Color.decode("#b992e8"));	
+		
+		
+		//login -> seat manager
+		loginPageButtonRedirectToPlane = new JButton ("Proceed to Plane");
+		loginPageButtonRedirectToPlane.setBounds(300, 390, 350, 40);
+		loginPageButtonRedirectToPlane.setBackground(Color.pink);
+		loginPageButtonRedirectToPlane.setForeground(Color.black);
+		loginPageButtonRedirectToPlane.addActionListener(this);
+		loginPanel.add(loginPageButtonRedirectToPlane);
+
+	}
+	
+	public void seatManagerPageSetUp() {
+		
+//String letters = "ABCD";
+//		
+//		ArrayList<JButton> seats = new ArrayList <>();
+//		
+//		seatManagerPanel = new JPanel(new GridLayout(20,4));
+//		this.seatManagerPanel.setBackground(Color.pink);
+//
+//	    for (int i = 0; i < 4 * 20; i++) {
+//	    	int index = i;
+//	    	ArrayList<Seat> modelSeats = mainModel.getSeats();
+//	    	//"%2s%s" lines each button up with a padding of 2
+//	    	SeatButton seat = new SeatButton(modelSeats.get(i), String.format("%2s%s",Integer.toString((i/4) + 1),letters.charAt(i%4)));
+//	    	seat.addActionListener(event -> {
+//	    		mainModel.setSelectedSeat(mainModel.getSeats().get(index)); //when the button is clicked, get the specific seat and select that selected seat
+//	    		//.setPerson(new Person("Sharanya", "Udupa", "sharanyaudupa@gmail.com", "lolyouthought"));
+//	    	});
+//	      
+//	      seat.setSize(30, 30);	      
+//	      seatManagerPanel.add(seat);
+//	    }
+		
+		
+		ArrayList<JButton> seats = new ArrayList <>();
+			
+		GridBagLayout gbl = new GridBagLayout();
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridheight = 1;
+		
+		seatManagerPanel = new JPanel(gbl);
+		
+		
+		this.seatManagerPanel.setBackground(Color.pink);
+		int i = 0;
+		
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		
+		//first
+		gbc.gridwidth = 4;
+		JLabel firstClassLable = new JLabel("First Class", SwingConstants.CENTER);
+		gbl.addLayoutComponent(firstClassLable, gbc);
+		seatManagerPanel.add(firstClassLable);
+		
+		gbc.gridwidth = 1;
+		//for the first class
+		//four rows with four cols
+		//4*4
+		while (i < 16) {
+		    SeatButton seat = createSeat(i);
+		    gbc.gridx = i % 4;
+		    gbc.gridy = 1 + (i / 4);
+		    gbl.addLayoutComponent(seat, gbc);
+	    	seatManagerPanel.add(seat);
+			i++;
+		}
+		
+		//business
+		gbc.gridwidth = 4;
+		gbc.gridx = 0;
+		gbc.gridy = gbc.gridy + 1;
+		JLabel businessClassLable = new JLabel("Business Class", SwingConstants.CENTER);
+		gbl.addLayoutComponent(businessClassLable, gbc);
+		seatManagerPanel.add(businessClassLable);
+		
+		gbc.gridwidth = 1;
+		//business class
+		//12*4
+		while (i < 48) {
+		    SeatButton seat = createSeat(i);
+		    gbc.gridx = i % 4;
+		    gbc.gridy = 2 + (i / 4);
+		    gbl.addLayoutComponent(seat, gbc);
+	    	seatManagerPanel.add(seat);
+			i++;
+		}
+		
+		//economy
+		gbc.gridwidth = 4;
+		gbc.gridx = 0;
+		gbc.gridy = gbc.gridy + 1;
+		JLabel economyClassLabel = new JLabel("Economy Class", SwingConstants.CENTER);
+		gbl.addLayoutComponent(economyClassLabel, gbc);
+		seatManagerPanel.add(economyClassLabel);
+		
+		gbc.gridwidth = 1;
+		//business class
+		//20*4
+		while (i < 80) {
+		    SeatButton seat = createSeat(i);
+		    gbc.gridx = i % 4;
+		    gbc.gridy = 3 + (i / 4);
+		    gbl.addLayoutComponent(seat, gbc);
+	    	seatManagerPanel.add(seat);
+			i++;
+		}
+	   
+	   
+	}
+	
+	private SeatButton createSeat(int index) {
+		String letters = "ABCD";
+		
+		SeatButton seat = new SeatButton(mainModel.getSeats().get(index), String.format("%2s%s",Integer.toString((index/4) + 1),letters.charAt(index%4)));
+    	seat.addActionListener(event -> {
+    		mainModel.setSelectedSeat(mainModel.getSeats().get(index)); //when the button is clicked, get the specific seat and select that selected seat
+    	});
+      
+    	seat.setSize(30, 30);
+    	
+    	return seat;
+	}
+
+	@Override
+	//Singleton pattern? : only one popup browser, and we will always have one popup browser (hidden or not)
+	public void stateChanged(ChangeEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

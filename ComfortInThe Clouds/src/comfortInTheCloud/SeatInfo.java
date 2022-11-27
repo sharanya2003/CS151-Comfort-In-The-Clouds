@@ -158,5 +158,7 @@ public class SeatInfo extends JFrame implements ChangeListener {
 			
 		}
 		
+		System.out.println("hello there");
+		
 	}
  }

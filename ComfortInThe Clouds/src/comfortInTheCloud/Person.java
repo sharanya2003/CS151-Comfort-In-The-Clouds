@@ -1,6 +1,10 @@
 package comfortInTheCloud;
 
-public class Person{
+import java.io.Serializable;
+
+public class Person implements Serializable {
+	private static final long serialVersionUID = 69972453067262362L;
+	
 	private String name;
 	private String password;
 	public Person(String name,String password) {

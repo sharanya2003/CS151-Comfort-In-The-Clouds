@@ -5,33 +5,25 @@ public class SeatFactory {
 	
 	private static SeatFactory instance = null;
 	//constructor
-	private SeatFactory() {
-		
+	private SeatFactory() {	
 	}
 	
 	
 	public Seat createSeat(int r, int c) {
-		Seat seat;
-		
-		boolean window = c==0;
-		boolean legRoom = r==1 || r==5 || r==12;
+
+		boolean window = c==0 || c==3;
+		boolean legRoom = r==0 || r==4 || r==12;
 		//differentiate first class seat
-		if(r<5) {
-			seat = new FirstSeat(window, legRoom);
+		if(r<4) {
+			return new FirstSeat(window, legRoom);
 		}
 		
 		//differentiate business seat price
-		if(r>=5 && r<11) {
-			seat = new BusinessSeat(window, legRoom);
+		if(r>=4 && r<12) {
+			return new BusinessSeat(window, legRoom);
 		}
 		//differentiate economy seat class
-		else {
-			seat = new EconomySeat(window, legRoom);
-		}
-
-		
-		
-		return seat;
+		return new EconomySeat(window, legRoom);
 	}
 	
 	public static SeatFactory getInstance() {

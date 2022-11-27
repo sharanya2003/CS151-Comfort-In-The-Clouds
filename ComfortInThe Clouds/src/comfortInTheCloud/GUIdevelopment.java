@@ -1,5 +1,6 @@
 package comfortInTheCloud;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -31,7 +32,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class GUIdevelopment implements ActionListener, ChangeListener{
+public class GUIdevelopment implements ActionListener{
 	
 	JFrame mainFrame = new JFrame("✈ ✈ ✈ Comfort In the Clouds ✈ ✈ ✈ "); //will have one frame that swiches from panel to panel
 	
@@ -189,7 +190,7 @@ public class GUIdevelopment implements ActionListener, ChangeListener{
 		
 		
 		//main frame setup	
-		mainFrame.setSize(780,610);
+		mainFrame.setSize(780,710);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 		mainFrame.add(welcomePanel);
@@ -443,15 +444,14 @@ public class GUIdevelopment implements ActionListener, ChangeListener{
 //	      seat.setSize(30, 30);	      
 //	      seatManagerPanel.add(seat);
 //	    }
-		
-		
-		ArrayList<JButton> seats = new ArrayList <>();
-			
+		JButton continuetoSurvey;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridheight = 1;
 		
+		
+		//Referenced from: https://stackoverflow.com/questions/11165323/how-do-i-use-gridbaylayout-in-java-swing-to-generate-this-particular-image-in
 		seatManagerPanel = new JPanel(gbl);
 		
 		
@@ -519,8 +519,10 @@ public class GUIdevelopment implements ActionListener, ChangeListener{
 	    	seatManagerPanel.add(seat);
 			i++;
 		}
-	   
-	   
+		
+		continuetoSurvey = new JButton("Checkout");
+		continuetoSurvey.setBounds(380, 700, 100, 100);
+		this.seatManagerPanel.add(continuetoSurvey);
 	}
 	
 	private SeatButton createSeat(int index) {
@@ -534,12 +536,5 @@ public class GUIdevelopment implements ActionListener, ChangeListener{
     	seat.setSize(30, 30);
     	
     	return seat;
-	}
-
-	@Override
-	//Singleton pattern? : only one popup browser, and we will always have one popup browser (hidden or not)
-	public void stateChanged(ChangeEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

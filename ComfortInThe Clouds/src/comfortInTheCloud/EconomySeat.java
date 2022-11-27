@@ -18,7 +18,7 @@ public class EconomySeat extends Seat{
 			info.append("Customer's name: " + this.getPerson().getName() + "\n");
 		}
       
-      info.append("Chosen to fly Economy Class. Total price (extra costs included): " + (getPrice()+getExtraPrice()) + "\n");
+      info.append("Chosen to fly Economy Class." + "\n" + "Total price (extra costs included): " + (getPrice()+getExtraPrice()) + "\n");
       if(this.isWindow()) {
         	info.append("You have chosen a window seat. Total flight price increased by 20 dollars" + "\n");
         }

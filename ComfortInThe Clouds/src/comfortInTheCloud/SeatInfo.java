@@ -25,8 +25,8 @@ public class SeatInfo extends JFrame implements ChangeListener {
 	private final JButton reserveButton;
 	private final JLabel nameLabel;
 	private final JTextField nameTextField;
-	private final JLabel pinLabel;
-	private final JPasswordField pinTextField;
+	private final JLabel pwdLabel;
+	private final JPasswordField pwdTextField;
 	private final JButton cancelButton;
 	public SeatInfo(MainModel mainModel) {
 		super();
@@ -50,12 +50,12 @@ public class SeatInfo extends JFrame implements ChangeListener {
 		nameTextField.setForeground(Color.white);
 		nameTextField.setBackground(Color.black);
 		//nameTextField.setFont(new Font("Monaco", Font.PLAIN, 20));
-		pinLabel = new JLabel("PIN");
+		pwdLabel = new JLabel("PASSWORD");
 //		pinLabel.setPreferredSize(new Dimension(500, 20));
 		//pinLabel.setBackground(Color.pink);
-		pinTextField = new JPasswordField ("");
-		pinTextField.setBackground(Color.black);
-		pinTextField.setForeground(Color.white);
+		pwdTextField = new JPasswordField ("");
+		pwdTextField.setBackground(Color.black);
+		pwdTextField.setForeground(Color.white);
 		reserveButton = new JButton("Reserve");
 		
 		//reserve button styling
@@ -92,7 +92,7 @@ public class SeatInfo extends JFrame implements ChangeListener {
 				});
 		
 		cancelButton.addActionListener((event) -> {
-			if(mainModel.getSelectedSeat().getPerson().getPassword().equals(pinTextField.getText())) {
+			if(mainModel.getSelectedSeat().getPerson().getPassword().equals(pwdTextField.getText())) {
 				mainModel.getSelectedSeat().setPerson(null);
 				mainModel.setSelectedSeat(null);
 			}
@@ -105,7 +105,7 @@ public class SeatInfo extends JFrame implements ChangeListener {
 		});
 		
 		reserveButton.addActionListener((event) -> {
-			mainModel.getSelectedSeat().setPerson(new Person(nameTextField.getText(), pinTextField.getText()));
+			mainModel.getSelectedSeat().setPerson(new Person(nameTextField.getText(), pwdTextField.getText()));
 			mainModel.setSelectedSeat(null);
 		});
 		
@@ -122,10 +122,10 @@ public class SeatInfo extends JFrame implements ChangeListener {
 		rowPanel = new JPanel(new BorderLayout());
 		rowPanel.setOpaque(false);
 		rowPanel.setBackground(Color.pink);
-		rowPanel.add(pinLabel, BorderLayout.LINE_START);
+		rowPanel.add(pwdLabel, BorderLayout.LINE_START);
 		add(rowPanel);
 		
-		add(pinTextField);
+		add(pwdTextField);
 		add(reserveButton);
 		add(cancelButton);
 	}
@@ -136,7 +136,7 @@ public class SeatInfo extends JFrame implements ChangeListener {
 			nameLabel.setText("Name:");
 			nameLabel.setForeground(Color.black);
 			nameTextField.setText("");
-			pinTextField.setText("");
+			pwdTextField.setText("");
 			setVisible(false);
 		} 
 		else {
@@ -146,6 +146,7 @@ public class SeatInfo extends JFrame implements ChangeListener {
 			
 			if (seat.getPerson() == null) {
 				nameTextField.setVisible(true);
+				nameTextField.setText(mainModel.getCurrentUser().getName());
 				reserveButton.setVisible(true);
 				cancelButton.setVisible(false);
 			} else {
@@ -157,8 +158,6 @@ public class SeatInfo extends JFrame implements ChangeListener {
 			}
 			
 		}
-		
-		System.out.println("hello there");
 		
 	}
  }

@@ -10,8 +10,15 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
@@ -75,7 +82,14 @@ public class GUIdevelopment implements ActionListener{
 	
 	
 	//components in login page
+	JLabel loginPageHeaderLabel;
+	JLabel loginPageNameLabel;
+	JLabel loginPagePwdLabel;
+	JTextField loginPageNameTextField;
+	JPasswordField loginPagePwdTextField;
 	JButton loginPageButtonRedirectToPlane;
+	JButton loginPageButtonRedirectToHome;
+	JButton newUserSignUpButton;
 	
 	private final MainModel mainModel;
 	
@@ -93,8 +107,43 @@ public class GUIdevelopment implements ActionListener{
 //		welcomePageImageLabel = new JLabel();
 //		welcomePageImageLabel.setIcon(welcomePageImage);
 //		mainFrame.add(welcomePageImageLabel);
-//		mainFrame.pack();	
-		mainModel = new MainModel();
+//		mainFrame.pack();
+		
+		File userDatabaseFile = new File("users.bin");
+		ArrayList<Person> users = new ArrayList<>();
+		
+		try {
+			if (userDatabaseFile.exists()) {
+				FileInputStream fileInputStream = new FileInputStream(userDatabaseFile);
+				ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+				users = (ArrayList<Person>) objectInputStream.readObject(); //bc we only expect to read one onject (should have only one obj)
+				//we cast to Person bc ony obj we have
+				fileInputStream.close();
+				objectInputStream.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); //see error happen
+		}
+		
+		mainFrame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent event) {
+				//when we close window, we need an output stream to write to a file (so it has a copy of the previous username info)
+				try {
+					FileOutputStream fileOutputStream = new FileOutputStream(userDatabaseFile);
+					ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+					objectOutputStream.writeObject(mainModel.getUsers());
+			
+					fileOutputStream.close();
+					objectOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+		mainModel = new MainModel(users);
 		new SeatInfo(mainModel);
 		//creating the welcome page
 		welcomePanel.setBackground(Color.pink);
@@ -243,7 +292,25 @@ public class GUIdevelopment implements ActionListener{
 			mainFrame.add(welcomePanel);
 			mainFrame.remove(signUpPanel);
 		}
+		//login page -> welcome page
+		if(ae.getSource() == loginPageButtonRedirectToHome) {
+			welcomePanel.setVisible(true);
+			loginPanel.setVisible(false);
+			welcomePanel.setLayout(null);
+			mainFrame.add(welcomePanel);
+			mainFrame.remove(loginPanel);
+		}	
+
+		//login -> signup
+		if(ae.getSource() ==newUserSignUpButton) {
+			signUpPanel.setVisible(true);
+			loginPanel.setVisible(false);
+			signUpPanel.setLayout(null);
+			mainFrame.add(signUpPanel);
+			mainFrame.remove(loginPanel);
+		}
 		
+		// sign up page -> login
 		if(ae.getSource() == this.signUpPageSubmitButton) {
 			//user info
 			  String signUppwd = String.valueOf(this.signUpPagePasswordEntry.getPassword());
@@ -259,16 +326,26 @@ public class GUIdevelopment implements ActionListener{
 	  			  this.signUpPageErrorMessage.setText("Passwords don't match");
 	  		  }
 	  		  
+	  		  mainModel.addUser(new Person(fname + " " + lname, signUppwd));
+	  		  // TODO: redirect to login
 	  		  System.out.println(signUppwd + signUpretype + fname + lname + email);
 		}
 		
 		
+		//login -> plane (if info correct)
 		if(ae.getSource() == loginPageButtonRedirectToPlane) {
+			Person newCurentUser = new Person("Noah Cardoza", "123");
+			if (!mainModel.checkUser(newCurentUser)) return;
+			
+			mainModel.setCurrentUser(newCurentUser);
+			
 			seatManagerPanel.setVisible(true);
 			loginPanel.setVisible(false);
 //			seatManagerPanel.setLayout(null);
 			mainFrame.add(seatManagerPanel);
 			mainFrame.remove(loginPanel);
+			
+			
 		}
 	}
 	
@@ -278,9 +355,9 @@ public class GUIdevelopment implements ActionListener{
 	public void signUpPageSetUp() {
 		signUpPanel.setBackground(Color.decode("#b992e8"));		
 		//header
-		signUpPageHeaderLabel = new JLabel("SIGN UP");
+		signUpPageHeaderLabel = new JLabel("SIGN UP HERE");
 		signUpPageHeaderLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 25));
-		signUpPageHeaderLabel.setBounds(330,0,300,90);
+		signUpPageHeaderLabel.setBounds(310,0,300,90);
 		signUpPanel.add(signUpPageHeaderLabel);
 		
 		//first name: label + entry
@@ -355,7 +432,7 @@ public class GUIdevelopment implements ActionListener{
 		
 		//submit button (with color changing effects)
 		
-		this.signUpPageSubmitButton = new JButton("LOGIN HERE:");
+		this.signUpPageSubmitButton = new JButton("SIGNUP");
 		signUpPageSubmitButton.setBounds(300, 390, 150, 40);
 		signUpPageSubmitButton.setBackground(Color.pink);
 		signUpPageSubmitButton.setForeground(Color.black);
@@ -411,14 +488,70 @@ public class GUIdevelopment implements ActionListener{
 	public void loginPageSetUp() {
 		loginPanel.setBackground(Color.decode("#b992e8"));	
 		
+		//header
+		loginPageHeaderLabel = new JLabel("LOGIN");
+		loginPageHeaderLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 25));
+		loginPageHeaderLabel.setBounds(330,0,300,90);
+		loginPanel.add(loginPageHeaderLabel);
+		
+		//name label + entry		
+		loginPageNameLabel = new JLabel("Full Name");
+		loginPageNameLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		loginPageNameLabel.setBounds(180,95,350,90);
+		loginPanel.add(loginPageNameLabel);
+		
+		loginPageNameTextField = new JTextField();
+		loginPageNameTextField.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		loginPageNameTextField.setBorder(BorderFactory.createLineBorder(Color.white));
+		loginPageNameTextField.setBackground(Color.pink);
+		loginPageNameTextField.setBounds(310,120,300, 40);
+		loginPanel.add(loginPageNameTextField);
+
+		//pwd label + entry
+		
+		this.loginPagePwdLabel = new JLabel("Password");
+		loginPagePwdLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		loginPagePwdLabel.setBounds(190,175,150,90);
+		loginPanel.add(loginPagePwdLabel);
+		
+		this.loginPagePwdTextField = new JPasswordField();
+		loginPagePwdTextField.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		loginPagePwdTextField.setBorder(BorderFactory.createLineBorder(Color.white));
+		loginPagePwdTextField.setBackground(Color.pink);
+		loginPagePwdTextField.setBounds(310,200,300, 40);
+		loginPanel.add(loginPagePwdTextField);
 		
 		//login -> seat manager
-		loginPageButtonRedirectToPlane = new JButton ("Proceed to Plane");
-		loginPageButtonRedirectToPlane.setBounds(300, 390, 350, 40);
+		loginPageButtonRedirectToPlane = new JButton ("Login");
+		loginPageButtonRedirectToPlane.setBounds(300, 310, 150, 40);
 		loginPageButtonRedirectToPlane.setBackground(Color.pink);
 		loginPageButtonRedirectToPlane.setForeground(Color.black);
 		loginPageButtonRedirectToPlane.addActionListener(this);
 		loginPanel.add(loginPageButtonRedirectToPlane);
+		
+		//login -> signup
+		this.newUserSignUpButton = new JButton("New User? Signup");
+		newUserSignUpButton.setBounds(430, 315, 200, 30);
+		newUserSignUpButton.setForeground(Color.white);
+		newUserSignUpButton.addActionListener(this);
+		newUserSignUpButton.setOpaque(false);
+		newUserSignUpButton.setContentAreaFilled(false);
+		newUserSignUpButton.setBorderPainted(false);
+		loginPanel.add(newUserSignUpButton);
+		
+		//login -> home
+			this.loginPageButtonRedirectToHome = new JButton("✈ CITC HOME ✈");
+			loginPageButtonRedirectToHome.setBounds(-30, 0, 200, 30);
+			loginPageButtonRedirectToHome.setForeground(Color.white);
+			loginPageButtonRedirectToHome.addActionListener(this);
+			loginPageButtonRedirectToHome.setOpaque(false);				
+			loginPageButtonRedirectToHome.setContentAreaFilled(false);
+			loginPageButtonRedirectToHome.setBorderPainted(false);
+			loginPanel.add(loginPageButtonRedirectToHome);
+
+			
+		
+		
 
 	}
 	

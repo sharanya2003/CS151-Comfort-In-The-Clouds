@@ -17,10 +17,11 @@ public class FirstSeat extends Seat {
 
 	public String seatInfo() {
 		StringBuilder info = new StringBuilder();
+		info.append("SEAT INFORMATION:" + "\n");
 		if (getPerson() != null) {
 			info.append("Customer's name: " + this.getPerson().getName() + "\n");
 		}
-		info.append("Chosen to fly First class." + "\n" + "Total price (extra costs included): " + (getPrice() + getExtraPrice())
+		info.append("Chosen to fly First class." + "\n" + "Total price (extra costs included): $" + (getPrice() + getExtraPrice())
 				+ "\n");
 		if (this.isWindow()) {
 			info.append("You have chosen a window seat. Total flight price increased by 20 dollars" + "\n");

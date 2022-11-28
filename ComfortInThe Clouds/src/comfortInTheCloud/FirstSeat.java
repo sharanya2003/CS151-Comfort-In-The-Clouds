@@ -1,4 +1,4 @@
-package comfortInTheCloud;
+ package comfortInTheCloud;
 
 //singleton: one FirstSeat's alteration alters all the first class seats!
 public class FirstSeat extends Seat {
@@ -22,13 +22,13 @@ public class FirstSeat extends Seat {
 		info.append("Chosen to fly First class." + "\n" + "Total price (extra costs included): $" + (getPrice() + getExtraPrice())
 				+ "\n");
 		if (this.isWindow()) {
-			info.append("You have chosen a window seat. Total flight price increased by 20 dollars" + "\n");
+			info.append("You have chosen a window seat. Total flight price increased by 10 dollars" + "\n");
 		} else {
 			info.append("You have not chosen a window seat. No extra charges made" + "\n");
 		}
 
 		if (this.isLongLeg()) {
-			info.append("You have chosen a long-leg seat. Total flight price increased by 10 dollars" + "\n");
+			info.append("You have chosen a long-leg seat. Total flight price increased by 20 dollars" + "\n");
 		} else {
 			info.append("You have not chosen a long-leg seat. No extra charges made" + "\n");
 		}

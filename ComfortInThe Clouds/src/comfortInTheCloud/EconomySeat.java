@@ -4,7 +4,6 @@ package comfortInTheCloud;
 public class EconomySeat extends Seat{
 	public EconomySeat(boolean window, boolean longLeg) {
 		super(window, longLeg);
-		// TODO Auto-generated constructor stub
 	}
 
 	private static double price = 100;
@@ -33,6 +32,7 @@ public class EconomySeat extends Seat{
         else {
         	info.append("You have not chosen a long-leg seat. No extra charges made" + "\n");
         }
+      info.append("Economy Class Food Options: (1)Regular Meal (2)Vegan Meal (3)Gluten Free Meal" +  "\n");
       info.append("Number of Carry-on Luggage Allowed: 1");
       return info.toString();
 	}

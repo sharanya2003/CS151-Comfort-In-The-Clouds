@@ -4,7 +4,6 @@ package comfortInTheCloud;
 public class BusinessSeat extends Seat{
 	public BusinessSeat(boolean window, boolean longLeg) {
 		super(window, longLeg);
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -37,7 +36,7 @@ public class BusinessSeat extends Seat{
           else {
           	info.append("You have not chosen a long-leg seat. No extra charges made" + "\n");
           }
-        
+        info.append("Business Class Food Options: (1)Regular Meal (2)Vegan Meal (3)Gluten Free Meal" + "\n");
         info.append("Number of Carry-on Luggage Allowed: 2");
         return info.toString();
 	}

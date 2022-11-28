@@ -95,7 +95,9 @@ public class SeatInfo extends JFrame implements ChangeListener {
 				});
 		
 		cancelButton.addActionListener((event) -> {
+//			System.out.println(mainModel.getSelectedSeat().getPerson().getPassword() + " " + pwdTextField.getText());
 			if(mainModel.getSelectedSeat().getPerson().getPassword().equals(pwdTextField.getText())) {
+				
 				mainModel.getSelectedSeat().setPerson(null);
 				mainModel.setSelectedSeat(null);
 			}

@@ -2,12 +2,14 @@ package comfortInTheCloud;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -30,6 +32,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -47,9 +51,7 @@ public class GUIdevelopment implements ActionListener{
 	JPanel welcomePanel = new JPanel();
 	JPanel signUpPanel = new JPanel();
 	JPanel loginPanel = new JPanel();
-	JPanel seatManagerPanel = new JPanel();
-	JPanel checkoutPanel = new JPanel();
-	JPanel successPanel = new JPanel();
+	JPanel seatManagerPanel = new JPanel();	
 	
 	//components in welcome page
     JLabel welcomePageTitle;
@@ -91,8 +93,20 @@ public class GUIdevelopment implements ActionListener{
 	JButton loginPageButtonRedirectToHome;
 	JButton newUserSignUpButton;
 	
-	private final MainModel mainModel;
+	//compontents in survey page
+	private JButton[] ratingButtons;
+    private JPanel buttonPanel;
+    private JPanel commentPanel;
+    private JLabel commentLabel;
+    private JTextArea commentText;
+    private JScrollPane scrollPane;
+    private JButton submitButton;
+    private JButton resetButton;
 	
+	//compontents in plane
+	private final MainModel mainModel;
+	private JButton continuetoSurvey;
+
 	
 	//constructor
 	public GUIdevelopment() throws IOException {
@@ -102,13 +116,8 @@ public class GUIdevelopment implements ActionListener{
 		//ex: welcomePageSignUpButton vs SignUpPageSubmitButton vs loginPageSubmitButton
 		//finish the variable name off with the type so its easier to detect ex if its a panel, name should have "panel" in it, if its a label, name should have "label" in it
 		
-		//trying out bckd image stuff--laggy!!
-//		welcomePageImage = new ImageIcon ("C:\\Users\\shara\\eclipse-workspace\\ComfortInTheClouds\\ComfortInThe Clouds\\bin\\comfortInTheCloud\\welcomePageBkd.jpg");
-//		welcomePageImageLabel = new JLabel();
-//		welcomePageImageLabel.setIcon(welcomePageImage);
-//		mainFrame.add(welcomePageImageLabel);
-//		mainFrame.pack();
 		
+		//Referenced from: https://stackoverflow.com/questions/17293991/how-to-write-and-read-java-serialized-objects-into-a-file
 		File userDatabaseFile = new File("users.bin");
 		ArrayList<Person> users = new ArrayList<>();
 		
@@ -227,9 +236,9 @@ public class GUIdevelopment implements ActionListener{
 		
 		//footer
 		welcomePageFooter = new JLabel("Follow us on Twitter, Instagram, and Facebook for more updates: @ComfortInTheClouds");
-		welcomePageFooter.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 12));
+		welcomePageFooter.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 17));
 		welcomePageFooter.setForeground(Color.white);
-		welcomePageFooter.setBounds(150,410,700,90);
+		welcomePageFooter.setBounds(60,500,700,90);
 		welcomePanel.add(welcomePageFooter);
 		
 		//setting background
@@ -239,7 +248,7 @@ public class GUIdevelopment implements ActionListener{
 		
 		
 		//main frame setup	
-		mainFrame.setSize(780,710);
+		mainFrame.setSize(780,610);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 		mainFrame.add(welcomePanel);
@@ -247,10 +256,7 @@ public class GUIdevelopment implements ActionListener{
 		//call your methods that load the page here
 		signUpPageSetUp();
 		loginPageSetUp();
-		seatManagerPageSetUp();
-		
-		
-		
+		seatManagerPageSetUp();		
 	}
 	
 	@Override
@@ -327,10 +333,8 @@ public class GUIdevelopment implements ActionListener{
 	  		  }
 	  		  
 	  		  else {
-	  			  mainModel.addUser(new Person(fname + " " + lname, signUppwd));
-		  		  // TODO: redirect to login
-		  		  System.out.println(signUppwd + signUpretype + fname + lname + email);
-		  		  
+	  			  //create a person from the given login information
+	  			  mainModel.addUser(new Person(fname + " " + lname, signUppwd));		  		  
 		  		  
 		  		  this.loginPanel.setVisible(true);
 		  		  this.signUpPanel.setVisible(false);
@@ -491,7 +495,7 @@ public class GUIdevelopment implements ActionListener{
 		signUpPageErrorMessage = new JLabel();
 		signUpPageErrorMessage.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
 		this.signUpPageErrorMessage.setForeground(Color.white);
-		signUpPageErrorMessage.setBounds(300, 410, 500, 30);
+		signUpPageErrorMessage.setBounds(300, 500, 500, 30);
 		signUpPanel.add(signUpPageErrorMessage);
 	}
 	
@@ -562,28 +566,6 @@ public class GUIdevelopment implements ActionListener{
 	}
 	
 	public void seatManagerPageSetUp() {
-		
-//String letters = "ABCD";
-//		
-//		ArrayList<JButton> seats = new ArrayList <>();
-//		
-//		seatManagerPanel = new JPanel(new GridLayout(20,4));
-//		this.seatManagerPanel.setBackground(Color.pink);
-//
-//	    for (int i = 0; i < 4 * 20; i++) {
-//	    	int index = i;
-//	    	ArrayList<Seat> modelSeats = mainModel.getSeats();
-//	    	//"%2s%s" lines each button up with a padding of 2
-//	    	SeatButton seat = new SeatButton(modelSeats.get(i), String.format("%2s%s",Integer.toString((i/4) + 1),letters.charAt(i%4)));
-//	    	seat.addActionListener(event -> {
-//	    		mainModel.setSelectedSeat(mainModel.getSeats().get(index)); //when the button is clicked, get the specific seat and select that selected seat
-//	    		//.setPerson(new Person("Sharanya", "Udupa", "sharanyaudupa@gmail.com", "lolyouthought"));
-//	    	});
-//	      
-//	      seat.setSize(30, 30);	      
-//	      seatManagerPanel.add(seat);
-//	    }
-		JButton continuetoSurvey;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
@@ -659,16 +641,11 @@ public class GUIdevelopment implements ActionListener{
 			i++;
 		}
 		
-		gbc.gridwidth = 4;
-		gbc.gridx = 0;
-		gbc.gridy = gbc.gridy + 1;
-		continuetoSurvey = new JButton("Checkout");
-		gbl.addLayoutComponent(continuetoSurvey, gbc);
-		seatManagerPanel.add(continuetoSurvey);
-		
-		
-		continuetoSurvey.setBounds(380, 700, 100, 100);
-		this.seatManagerPanel.add(continuetoSurvey);
+//		
+//		seatManagerPanel.add(continuetoSurvey);
+//		
+//		
+//		continuetoSurvey.setBounds(380, 700, 100, 100);
 	}
 	
 	private SeatButton createSeat(int index) {

@@ -326,15 +326,26 @@ public class GUIdevelopment implements ActionListener{
 	  			  this.signUpPageErrorMessage.setText("Passwords don't match");
 	  		  }
 	  		  
-	  		  mainModel.addUser(new Person(fname + " " + lname, signUppwd));
-	  		  // TODO: redirect to login
-	  		  System.out.println(signUppwd + signUpretype + fname + lname + email);
+	  		  else {
+	  			  mainModel.addUser(new Person(fname + " " + lname, signUppwd));
+		  		  // TODO: redirect to login
+		  		  System.out.println(signUppwd + signUpretype + fname + lname + email);
+		  		  
+		  		  
+		  		  this.loginPanel.setVisible(true);
+		  		  this.signUpPanel.setVisible(false);
+		  		  this.loginPanel.setLayout(null);
+		  		  mainFrame.add(loginPanel);
+		  		  mainFrame.remove(signUpPanel);
+	  		  }
+	  		  
+	  		  
 		}
 		
 		
 		//login -> plane (if info correct)
 		if(ae.getSource() == loginPageButtonRedirectToPlane) {
-			Person newCurentUser = new Person("Noah Cardoza", "123");
+			Person newCurentUser = new Person(loginPageNameTextField.getText(), loginPagePwdTextField.getText());
 			if (!mainModel.checkUser(newCurentUser)) return;
 			
 			mainModel.setCurrentUser(newCurentUser);
@@ -548,11 +559,6 @@ public class GUIdevelopment implements ActionListener{
 			loginPageButtonRedirectToHome.setContentAreaFilled(false);
 			loginPageButtonRedirectToHome.setBorderPainted(false);
 			loginPanel.add(loginPageButtonRedirectToHome);
-
-			
-		
-		
-
 	}
 	
 	public void seatManagerPageSetUp() {
@@ -653,7 +659,14 @@ public class GUIdevelopment implements ActionListener{
 			i++;
 		}
 		
+		gbc.gridwidth = 4;
+		gbc.gridx = 0;
+		gbc.gridy = gbc.gridy + 1;
 		continuetoSurvey = new JButton("Checkout");
+		gbl.addLayoutComponent(continuetoSurvey, gbc);
+		seatManagerPanel.add(continuetoSurvey);
+		
+		
 		continuetoSurvey.setBounds(380, 700, 100, 100);
 		this.seatManagerPanel.add(continuetoSurvey);
 	}

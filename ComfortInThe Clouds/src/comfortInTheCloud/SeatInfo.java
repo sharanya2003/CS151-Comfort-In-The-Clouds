@@ -25,8 +25,8 @@ public class SeatInfo extends JFrame implements ChangeListener {
 	private final JButton reserveButton;
 	private final JLabel nameLabel;
 	private final JTextField nameTextField;
-	private final JLabel pinLabel;
-	private final JPasswordField pinTextField;
+	private final JLabel pwdLabel;
+	private final JPasswordField pwdTextField;
 	private final JButton cancelButton;
 	public SeatInfo(MainModel mainModel) {
 		super();
@@ -39,31 +39,34 @@ public class SeatInfo extends JFrame implements ChangeListener {
 		textArea.setFont(new Font("Monaco", Font.CENTER_BASELINE, 12));
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE); //not exit on close bc we dont wanna kill whole program
 		
-		this.setSize(500, 300);
+		this.setSize(420, 300);
 		this.setBackground(Color.decode("#b992e8"));
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		add(textArea);
 		
 		nameLabel = new JLabel("NAME", SwingConstants.LEFT);
-		getContentPane().setBackground(Color.pink);
+		getContentPane().setBackground(Color.decode("#b992e8"));
 		nameTextField = new JTextField("");
 		nameTextField.setForeground(Color.white);
-		nameTextField.setBackground(Color.black);
-		//nameTextField.setFont(new Font("Monaco", Font.PLAIN, 20));
-		pinLabel = new JLabel("PIN");
+		nameTextField.setBackground(Color.decode("#b992e8"));
+		nameTextField.setFont(new Font("Monaco", Font.PLAIN, 20));
+		pwdLabel = new JLabel("PASSWORD");
 //		pinLabel.setPreferredSize(new Dimension(500, 20));
 		//pinLabel.setBackground(Color.pink);
-		pinTextField = new JPasswordField ("");
-		pinTextField.setBackground(Color.black);
-		pinTextField.setForeground(Color.white);
+		pwdTextField = new JPasswordField ("");
+		pwdTextField.setBackground(Color.decode("#b992e8"));
+		pwdTextField.setForeground(Color.white);
+		pwdTextField.setFont(new Font("Monaco", Font.PLAIN, 20));
+		
 		reserveButton = new JButton("Reserve");
+		reserveButton.setSize(400, 40);
 		
 		//reserve button styling
 		reserveButton.setBackground(Color.black);
 		reserveButton.setForeground(Color.white);
 		reserveButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	reserveButton.setBackground(Color.pink);
+		    	reserveButton.setBackground(Color.decode("#b992e8"));
 		    	reserveButton.setForeground(Color.black);
 		    }
 
@@ -92,7 +95,9 @@ public class SeatInfo extends JFrame implements ChangeListener {
 				});
 		
 		cancelButton.addActionListener((event) -> {
-			if(mainModel.getSelectedSeat().getPerson().getPassword().equals(pinTextField.getText())) {
+//			System.out.println(mainModel.getSelectedSeat().getPerson().getPassword() + " " + pwdTextField.getText());
+			if(mainModel.getSelectedSeat().getPerson().getPassword().equals(pwdTextField.getText())) {
+				
 				mainModel.getSelectedSeat().setPerson(null);
 				mainModel.setSelectedSeat(null);
 			}
@@ -105,7 +110,7 @@ public class SeatInfo extends JFrame implements ChangeListener {
 		});
 		
 		reserveButton.addActionListener((event) -> {
-			mainModel.getSelectedSeat().setPerson(new Person(nameTextField.getText(), pinTextField.getText()));
+			mainModel.getSelectedSeat().setPerson(new Person(nameTextField.getText(), pwdTextField.getText()));
 			mainModel.setSelectedSeat(null);
 		});
 		
@@ -121,11 +126,11 @@ public class SeatInfo extends JFrame implements ChangeListener {
 		
 		rowPanel = new JPanel(new BorderLayout());
 		rowPanel.setOpaque(false);
-		rowPanel.setBackground(Color.pink);
-		rowPanel.add(pinLabel, BorderLayout.LINE_START);
+		rowPanel.setBackground(Color.decode("#b992e8"));
+		rowPanel.add(pwdLabel, BorderLayout.LINE_START);
 		add(rowPanel);
 		
-		add(pinTextField);
+		add(pwdTextField);
 		add(reserveButton);
 		add(cancelButton);
 	}
@@ -134,9 +139,9 @@ public class SeatInfo extends JFrame implements ChangeListener {
 	public void stateChanged(ChangeEvent e) {
 		if (mainModel.getSelectedSeat() == null) {
 			nameLabel.setText("Name:");
-			nameLabel.setForeground(Color.black);
+			nameLabel.setForeground(Color.decode("#b992e8"));
 			nameTextField.setText("");
-			pinTextField.setText("");
+			pwdTextField.setText("");
 			setVisible(false);
 		} 
 		else {
@@ -146,6 +151,7 @@ public class SeatInfo extends JFrame implements ChangeListener {
 			
 			if (seat.getPerson() == null) {
 				nameTextField.setVisible(true);
+				nameTextField.setText(mainModel.getCurrentUser().getName());
 				reserveButton.setVisible(true);
 				cancelButton.setVisible(false);
 			} else {
@@ -157,8 +163,6 @@ public class SeatInfo extends JFrame implements ChangeListener {
 			}
 			
 		}
-		
-		System.out.println("hello there");
 		
 	}
  }

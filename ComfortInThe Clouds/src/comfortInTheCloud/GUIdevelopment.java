@@ -2,16 +2,25 @@ package comfortInTheCloud;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
@@ -23,6 +32,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -40,9 +51,7 @@ public class GUIdevelopment implements ActionListener{
 	JPanel welcomePanel = new JPanel();
 	JPanel signUpPanel = new JPanel();
 	JPanel loginPanel = new JPanel();
-	JPanel seatManagerPanel = new JPanel();
-	JPanel checkoutPanel = new JPanel();
-	JPanel successPanel = new JPanel();
+	JPanel seatManagerPanel = new JPanel();	
 	
 	//components in welcome page
     JLabel welcomePageTitle;
@@ -75,10 +84,29 @@ public class GUIdevelopment implements ActionListener{
 	
 	
 	//components in login page
+	JLabel loginPageHeaderLabel;
+	JLabel loginPageNameLabel;
+	JLabel loginPagePwdLabel;
+	JTextField loginPageNameTextField;
+	JPasswordField loginPagePwdTextField;
 	JButton loginPageButtonRedirectToPlane;
+	JButton loginPageButtonRedirectToHome;
+	JButton newUserSignUpButton;
 	
+	//compontents in survey page
+	private JButton[] ratingButtons;
+    private JPanel buttonPanel;
+    private JPanel commentPanel;
+    private JLabel commentLabel;
+    private JTextArea commentText;
+    private JScrollPane scrollPane;
+    private JButton submitButton;
+    private JButton resetButton;
+	
+	//compontents in plane
 	private final MainModel mainModel;
-	
+	private JButton continuetoSurvey;
+
 	
 	//constructor
 	public GUIdevelopment() throws IOException {
@@ -88,13 +116,43 @@ public class GUIdevelopment implements ActionListener{
 		//ex: welcomePageSignUpButton vs SignUpPageSubmitButton vs loginPageSubmitButton
 		//finish the variable name off with the type so its easier to detect ex if its a panel, name should have "panel" in it, if its a label, name should have "label" in it
 		
-		//trying out bckd image stuff--laggy!!
-//		welcomePageImage = new ImageIcon ("C:\\Users\\shara\\eclipse-workspace\\ComfortInTheClouds\\ComfortInThe Clouds\\bin\\comfortInTheCloud\\welcomePageBkd.jpg");
-//		welcomePageImageLabel = new JLabel();
-//		welcomePageImageLabel.setIcon(welcomePageImage);
-//		mainFrame.add(welcomePageImageLabel);
-//		mainFrame.pack();	
-		mainModel = new MainModel();
+		
+		//Referenced from: https://stackoverflow.com/questions/17293991/how-to-write-and-read-java-serialized-objects-into-a-file
+		File userDatabaseFile = new File("users.bin");
+		ArrayList<Person> users = new ArrayList<>();
+		
+		try {
+			if (userDatabaseFile.exists()) {
+				FileInputStream fileInputStream = new FileInputStream(userDatabaseFile);
+				ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+				users = (ArrayList<Person>) objectInputStream.readObject(); //bc we only expect to read one onject (should have only one obj)
+				//we cast to Person bc ony obj we have
+				fileInputStream.close();
+				objectInputStream.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); //see error happen
+		}
+		
+		mainFrame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent event) {
+				//when we close window, we need an output stream to write to a file (so it has a copy of the previous username info)
+				try {
+					FileOutputStream fileOutputStream = new FileOutputStream(userDatabaseFile);
+					ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+					objectOutputStream.writeObject(mainModel.getUsers());
+			
+					fileOutputStream.close();
+					objectOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+		mainModel = new MainModel(users);
 		new SeatInfo(mainModel);
 		//creating the welcome page
 		welcomePanel.setBackground(Color.pink);
@@ -178,9 +236,9 @@ public class GUIdevelopment implements ActionListener{
 		
 		//footer
 		welcomePageFooter = new JLabel("Follow us on Twitter, Instagram, and Facebook for more updates: @ComfortInTheClouds");
-		welcomePageFooter.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 12));
+		welcomePageFooter.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 17));
 		welcomePageFooter.setForeground(Color.white);
-		welcomePageFooter.setBounds(150,410,700,90);
+		welcomePageFooter.setBounds(60,500,700,90);
 		welcomePanel.add(welcomePageFooter);
 		
 		//setting background
@@ -190,7 +248,7 @@ public class GUIdevelopment implements ActionListener{
 		
 		
 		//main frame setup	
-		mainFrame.setSize(780,710);
+		mainFrame.setSize(780,610);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 		mainFrame.add(welcomePanel);
@@ -198,10 +256,7 @@ public class GUIdevelopment implements ActionListener{
 		//call your methods that load the page here
 		signUpPageSetUp();
 		loginPageSetUp();
-		seatManagerPageSetUp();
-		
-		
-		
+		seatManagerPageSetUp();		
 	}
 	
 	@Override
@@ -243,7 +298,25 @@ public class GUIdevelopment implements ActionListener{
 			mainFrame.add(welcomePanel);
 			mainFrame.remove(signUpPanel);
 		}
+		//login page -> welcome page
+		if(ae.getSource() == loginPageButtonRedirectToHome) {
+			welcomePanel.setVisible(true);
+			loginPanel.setVisible(false);
+			welcomePanel.setLayout(null);
+			mainFrame.add(welcomePanel);
+			mainFrame.remove(loginPanel);
+		}	
+
+		//login -> signup
+		if(ae.getSource() ==newUserSignUpButton) {
+			signUpPanel.setVisible(true);
+			loginPanel.setVisible(false);
+			signUpPanel.setLayout(null);
+			mainFrame.add(signUpPanel);
+			mainFrame.remove(loginPanel);
+		}
 		
+		// sign up page -> login
 		if(ae.getSource() == this.signUpPageSubmitButton) {
 			//user info
 			  String signUppwd = String.valueOf(this.signUpPagePasswordEntry.getPassword());
@@ -259,16 +332,35 @@ public class GUIdevelopment implements ActionListener{
 	  			  this.signUpPageErrorMessage.setText("Passwords don't match");
 	  		  }
 	  		  
-	  		  System.out.println(signUppwd + signUpretype + fname + lname + email);
+	  		  else {
+	  			  //create a person from the given login information
+	  			  mainModel.addUser(new Person(fname + " " + lname, signUppwd));		  		  
+		  		  
+		  		  this.loginPanel.setVisible(true);
+		  		  this.signUpPanel.setVisible(false);
+		  		  this.loginPanel.setLayout(null);
+		  		  mainFrame.add(loginPanel);
+		  		  mainFrame.remove(signUpPanel);
+	  		  }
+	  		  
+	  		  
 		}
 		
 		
+		//login -> plane (if info correct)
 		if(ae.getSource() == loginPageButtonRedirectToPlane) {
+			Person newCurentUser = new Person(loginPageNameTextField.getText(), loginPagePwdTextField.getText());
+			if (!mainModel.checkUser(newCurentUser)) return;
+			
+			mainModel.setCurrentUser(newCurentUser);
+			
 			seatManagerPanel.setVisible(true);
 			loginPanel.setVisible(false);
 //			seatManagerPanel.setLayout(null);
 			mainFrame.add(seatManagerPanel);
 			mainFrame.remove(loginPanel);
+			
+			
 		}
 	}
 	
@@ -278,9 +370,9 @@ public class GUIdevelopment implements ActionListener{
 	public void signUpPageSetUp() {
 		signUpPanel.setBackground(Color.decode("#b992e8"));		
 		//header
-		signUpPageHeaderLabel = new JLabel("SIGN UP");
+		signUpPageHeaderLabel = new JLabel("SIGN UP HERE");
 		signUpPageHeaderLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 25));
-		signUpPageHeaderLabel.setBounds(330,0,300,90);
+		signUpPageHeaderLabel.setBounds(310,0,300,90);
 		signUpPanel.add(signUpPageHeaderLabel);
 		
 		//first name: label + entry
@@ -355,7 +447,7 @@ public class GUIdevelopment implements ActionListener{
 		
 		//submit button (with color changing effects)
 		
-		this.signUpPageSubmitButton = new JButton("LOGIN HERE:");
+		this.signUpPageSubmitButton = new JButton("SIGNUP");
 		signUpPageSubmitButton.setBounds(300, 390, 150, 40);
 		signUpPageSubmitButton.setBackground(Color.pink);
 		signUpPageSubmitButton.setForeground(Color.black);
@@ -403,7 +495,7 @@ public class GUIdevelopment implements ActionListener{
 		signUpPageErrorMessage = new JLabel();
 		signUpPageErrorMessage.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
 		this.signUpPageErrorMessage.setForeground(Color.white);
-		signUpPageErrorMessage.setBounds(300, 410, 500, 30);
+		signUpPageErrorMessage.setBounds(300, 500, 500, 30);
 		signUpPanel.add(signUpPageErrorMessage);
 	}
 	
@@ -411,40 +503,69 @@ public class GUIdevelopment implements ActionListener{
 	public void loginPageSetUp() {
 		loginPanel.setBackground(Color.decode("#b992e8"));	
 		
+		//header
+		loginPageHeaderLabel = new JLabel("LOGIN");
+		loginPageHeaderLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 25));
+		loginPageHeaderLabel.setBounds(330,0,300,90);
+		loginPanel.add(loginPageHeaderLabel);
+		
+		//name label + entry		
+		loginPageNameLabel = new JLabel("Full Name");
+		loginPageNameLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		loginPageNameLabel.setBounds(180,95,350,90);
+		loginPanel.add(loginPageNameLabel);
+		
+		loginPageNameTextField = new JTextField();
+		loginPageNameTextField.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		loginPageNameTextField.setBorder(BorderFactory.createLineBorder(Color.white));
+		loginPageNameTextField.setBackground(Color.pink);
+		loginPageNameTextField.setBounds(310,120,300, 40);
+		loginPanel.add(loginPageNameTextField);
+
+		//pwd label + entry
+		
+		this.loginPagePwdLabel = new JLabel("Password");
+		loginPagePwdLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		loginPagePwdLabel.setBounds(190,175,150,90);
+		loginPanel.add(loginPagePwdLabel);
+		
+		this.loginPagePwdTextField = new JPasswordField();
+		loginPagePwdTextField.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		loginPagePwdTextField.setBorder(BorderFactory.createLineBorder(Color.white));
+		loginPagePwdTextField.setBackground(Color.pink);
+		loginPagePwdTextField.setBounds(310,200,300, 40);
+		loginPanel.add(loginPagePwdTextField);
 		
 		//login -> seat manager
-		loginPageButtonRedirectToPlane = new JButton ("Proceed to Plane");
-		loginPageButtonRedirectToPlane.setBounds(300, 390, 350, 40);
+		loginPageButtonRedirectToPlane = new JButton ("Login");
+		loginPageButtonRedirectToPlane.setBounds(300, 310, 150, 40);
 		loginPageButtonRedirectToPlane.setBackground(Color.pink);
 		loginPageButtonRedirectToPlane.setForeground(Color.black);
 		loginPageButtonRedirectToPlane.addActionListener(this);
 		loginPanel.add(loginPageButtonRedirectToPlane);
-
+		
+		//login -> signup
+		this.newUserSignUpButton = new JButton("New User? Signup");
+		newUserSignUpButton.setBounds(430, 315, 200, 30);
+		newUserSignUpButton.setForeground(Color.white);
+		newUserSignUpButton.addActionListener(this);
+		newUserSignUpButton.setOpaque(false);
+		newUserSignUpButton.setContentAreaFilled(false);
+		newUserSignUpButton.setBorderPainted(false);
+		loginPanel.add(newUserSignUpButton);
+		
+		//login -> home
+			this.loginPageButtonRedirectToHome = new JButton("✈ CITC HOME ✈");
+			loginPageButtonRedirectToHome.setBounds(-30, 0, 200, 30);
+			loginPageButtonRedirectToHome.setForeground(Color.white);
+			loginPageButtonRedirectToHome.addActionListener(this);
+			loginPageButtonRedirectToHome.setOpaque(false);				
+			loginPageButtonRedirectToHome.setContentAreaFilled(false);
+			loginPageButtonRedirectToHome.setBorderPainted(false);
+			loginPanel.add(loginPageButtonRedirectToHome);
 	}
 	
 	public void seatManagerPageSetUp() {
-		
-//String letters = "ABCD";
-//		
-//		ArrayList<JButton> seats = new ArrayList <>();
-//		
-//		seatManagerPanel = new JPanel(new GridLayout(20,4));
-//		this.seatManagerPanel.setBackground(Color.pink);
-//
-//	    for (int i = 0; i < 4 * 20; i++) {
-//	    	int index = i;
-//	    	ArrayList<Seat> modelSeats = mainModel.getSeats();
-//	    	//"%2s%s" lines each button up with a padding of 2
-//	    	SeatButton seat = new SeatButton(modelSeats.get(i), String.format("%2s%s",Integer.toString((i/4) + 1),letters.charAt(i%4)));
-//	    	seat.addActionListener(event -> {
-//	    		mainModel.setSelectedSeat(mainModel.getSeats().get(index)); //when the button is clicked, get the specific seat and select that selected seat
-//	    		//.setPerson(new Person("Sharanya", "Udupa", "sharanyaudupa@gmail.com", "lolyouthought"));
-//	    	});
-//	      
-//	      seat.setSize(30, 30);	      
-//	      seatManagerPanel.add(seat);
-//	    }
-		JButton continuetoSurvey;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
@@ -520,9 +641,11 @@ public class GUIdevelopment implements ActionListener{
 			i++;
 		}
 		
-		continuetoSurvey = new JButton("Checkout");
-		continuetoSurvey.setBounds(380, 700, 100, 100);
-		this.seatManagerPanel.add(continuetoSurvey);
+//		
+//		seatManagerPanel.add(continuetoSurvey);
+//		
+//		
+//		continuetoSurvey.setBounds(380, 700, 100, 100);
 	}
 	
 	private SeatButton createSeat(int index) {

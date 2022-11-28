@@ -4,13 +4,11 @@ package comfortInTheCloud;
 public class FirstSeat extends Seat {
 	public FirstSeat(boolean window, boolean longLeg) {
 		super(window, longLeg);
-		// TODO Auto-generated constructor stub
 	}
 
 	private static double price = 5000;
 
 	public double getPrice() {
-		System.out.println(FirstSeat.price);
 		return FirstSeat.price;
 		
 	}
@@ -34,6 +32,7 @@ public class FirstSeat extends Seat {
 		} else {
 			info.append("You have not chosen a long-leg seat. No extra charges made" + "\n");
 		}
+		info.append("First Class Food Options: (1)Regular Meal (2)Vegan Meal (3)Gluten Free Meal" + "\n");
 		info.append("Number of Carry-on Luggage Allowed: 3");
 		return info.toString();
 	}

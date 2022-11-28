@@ -39,10 +39,6 @@ public abstract class Seat extends BaseModel{
 	public boolean isWindow() {
 		return window;
 	}
-
-
-
-
 	public boolean isLongLeg() {
 		return longLeg;
 	}

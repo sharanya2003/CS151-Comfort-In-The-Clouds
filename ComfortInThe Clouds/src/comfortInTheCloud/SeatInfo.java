@@ -39,7 +39,7 @@ public class SeatInfo extends JFrame implements ChangeListener {
 		textArea.setFont(new Font("Monaco", Font.CENTER_BASELINE, 12));
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE); //not exit on close bc we dont wanna kill whole program
 		
-		this.setSize(420, 300);
+		this.setSize(500, 300);
 		this.setBackground(Color.decode("#b992e8"));
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		add(textArea);
@@ -59,7 +59,7 @@ public class SeatInfo extends JFrame implements ChangeListener {
 		pwdTextField.setFont(new Font("Monaco", Font.PLAIN, 20));
 		
 		reserveButton = new JButton("Reserve");
-		reserveButton.setSize(400, 40);
+		reserveButton.setSize(420, 40);
 		
 		//reserve button styling
 		reserveButton.setBackground(Color.black);

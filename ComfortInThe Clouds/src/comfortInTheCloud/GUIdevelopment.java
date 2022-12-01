@@ -52,6 +52,8 @@ public class GUIdevelopment implements ActionListener{
 	JPanel signUpPanel = new JPanel();
 	JPanel loginPanel = new JPanel();
 	JPanel seatManagerPanel = new JPanel();	
+	JPanel foodPlanPanel = new JPanel();
+	JPanel surveyPanel = new JPanel();
 	
 	//components in welcome page
     JLabel welcomePageTitle;
@@ -106,6 +108,20 @@ public class GUIdevelopment implements ActionListener{
 	//compontents in plane
 	private final MainModel mainModel;
 	private JButton continuetoSurvey;
+	
+	//food plan
+	JButton seatManageButtonRedirectToFoodPlan;
+	JLabel foodPlanBio1;
+	JTextField foodPlanBio1TextField;
+	JLabel foodPlanBio2;
+	JLabel foodPlanBio3;
+	JButton foodPlanButtonRedirectToPlane;
+	JLabel vegLabel;
+    JLabel defaultLabel;
+    JLabel glutenFreeLabel;
+	JButton vegetarian;
+	JButton normalFoodPlan;
+	JButton glutenFree;
 
 	
 	//constructor
@@ -256,7 +272,8 @@ public class GUIdevelopment implements ActionListener{
 		//call your methods that load the page here
 		signUpPageSetUp();
 		loginPageSetUp();
-		seatManagerPageSetUp();		
+		seatManagerPageSetUp();	
+		foodPlanPageSetUp();
 	}
 	
 	@Override
@@ -359,9 +376,52 @@ public class GUIdevelopment implements ActionListener{
 //			seatManagerPanel.setLayout(null);
 			mainFrame.add(seatManagerPanel);
 			mainFrame.remove(loginPanel);
-			
-			
 		}
+		// seatManager - food
+		if (ae.getSource() == seatManageButtonRedirectToFoodPlan) {
+			foodPlanPanel.setVisible(true);
+			seatManagerPanel.setVisible(false);
+		   foodPlanPanel.setLayout(null);
+			mainFrame.add(foodPlanPanel);
+			mainFrame.remove(seatManagerPanel);
+		}
+// foodPlan - survey
+		
+		  if (ae.getSource() == foodPlanButtonRedirectToPlane) 
+		  {
+		  surveyPanel.setVisible(true); 
+		  foodPlanPanel.setVisible(false); 
+		  surveyPanel.setLayout(null); 
+		  mainFrame.add(surveyPanel);
+		  mainFrame.remove(foodPlanPanel); 
+		  }	
+		  if (ae.getSource() ==vegetarian ){
+	            vegLabel.setVisible(true);
+	            normalFoodPlan.setEnabled(false);
+	            glutenFree.setEnabled(false);
+
+	            // surveyPanel.setVisible(true);
+	            // mainPanel.setVisible (false);
+	            // mainFrame.add(surveyPanel);
+
+	        }
+
+	        if (ae.getSource()== normalFoodPlan){
+
+	            defaultLabel.setVisible(true);
+
+	            vegetarian.setEnabled(false);
+	            glutenFree.setEnabled(false);
+
+
+	        }
+
+	        if (ae.getSource() == glutenFree){
+	            glutenFreeLabel.setVisible(true);
+
+	            vegetarian.setEnabled(false);
+	            normalFoodPlan.setEnabled(false);
+	        }
 	}
 	
 	
@@ -659,5 +719,87 @@ public class GUIdevelopment implements ActionListener{
     	seat.setSize(30, 30);
     	
     	return seat;
+	}
+	public void foodPlanPageSetUp() {
+		// redirect to food page
+		this.seatManageButtonRedirectToFoodPlan = new JButton("Food Plan");
+		seatManageButtonRedirectToFoodPlan.setBounds(430, 395, 200, 30);
+		seatManageButtonRedirectToFoodPlan.setForeground(Color.white);
+		seatManageButtonRedirectToFoodPlan.addActionListener(this);
+		seatManageButtonRedirectToFoodPlan.setOpaque(false);
+		seatManageButtonRedirectToFoodPlan.setContentAreaFilled(false);
+		seatManageButtonRedirectToFoodPlan.setBorderPainted(false);
+		seatManagerPanel.add(seatManageButtonRedirectToFoodPlan);
+
+		//Heading
+		foodPlanBio1= new JLabel("Food Plan");
+		foodPlanBio2 = new JLabel("Please select an option:(1) Regular Meal");
+		foodPlanBio3 = new JLabel("(2) Vegan Meal (3) Gluten Free Meal");
+			
+			foodPlanBio1.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+			foodPlanBio1.setBounds(120, 50, 800, 90);//30, 50, 800, 90    //120,120,900,90 //(250 , 0, 400, 90);
+			foodPlanPanel.add(foodPlanBio1);
+			    
+			foodPlanBio2.setFont(new Font("Monaco", Font.PLAIN, 20));
+			foodPlanBio2.setBounds(120, 80, 800, 90); //(115,150,900,90);
+			foodPlanPanel.add(foodPlanBio2); 
+			
+			foodPlanBio3.setFont(new Font("Monaco", Font.PLAIN, 20));
+			foodPlanBio3.setBounds(320, 110, 800, 90); //(115,150,900,90);
+			foodPlanPanel.add(foodPlanBio3); 
+			
+			//survey button
+			foodPlanPanel.setBackground(Color.decode("#b992e8"));
+			foodPlanButtonRedirectToPlane = new JButton("Survey");
+			foodPlanButtonRedirectToPlane.setBounds(450, 500, 150, 40); //(300, 390, 350, 40)
+			foodPlanButtonRedirectToPlane.setBackground(Color.pink);
+			foodPlanButtonRedirectToPlane.setForeground(Color.black);
+			foodPlanButtonRedirectToPlane.addActionListener(this);
+			foodPlanPanel.add(foodPlanButtonRedirectToPlane);
+			
+		
+	        vegetarian = new JButton("Vegetarian");
+	        vegetarian.setBounds(350, 250, 150, 40);
+	        vegetarian.setBackground(Color.pink);
+	        vegetarian.setForeground(Color.black);
+	        vegetarian.addActionListener(this);
+	        foodPlanPanel.add(vegetarian);
+
+	        normalFoodPlan = new JButton("DEFAULT");
+	        normalFoodPlan.setBounds(150, 250, 150, 40);
+	        normalFoodPlan.setBackground(Color.pink);
+	        normalFoodPlan.setForeground(Color.black);
+	        normalFoodPlan.addActionListener(this);
+	        foodPlanPanel.add(normalFoodPlan);
+
+	        glutenFree = new JButton("Gluten Free");
+	        glutenFree.setBounds(550, 250, 150, 40);
+	        glutenFree.setBackground(Color.pink);
+	        glutenFree.setForeground(Color.black);
+	        glutenFree.addActionListener(this);
+	        foodPlanPanel.add(glutenFree);
+
+	        vegLabel = new JLabel("YOU HAVE CHOSEN VEGETARIAN FOODPLAN");
+	        vegLabel.setLayout(null);
+	        vegLabel.setBounds(50 , 350, 780, 90);
+	        vegLabel.setFont(new Font("Monaco",Font.ROMAN_BASELINE,30));
+	        vegLabel.setVisible(false);
+	        foodPlanPanel.add(vegLabel);
+
+
+	        defaultLabel = new JLabel("YOU HAVE CHOSE DEFAULT FOODPLAN");
+	        defaultLabel.setLayout(null);
+	        defaultLabel.setBounds(50 , 350, 780, 90);
+	        defaultLabel.setFont(new Font("Monaco",Font.ROMAN_BASELINE,30));
+	        defaultLabel.setVisible(false);
+	        foodPlanPanel.add(defaultLabel);
+
+	        glutenFreeLabel = new JLabel("YOU HAVE CHOSEN GLUTEN FREE FOODPLAN");
+
+	        glutenFreeLabel.setLayout(null);
+	        glutenFreeLabel.setBounds(50 , 350, 780, 90);
+	        glutenFreeLabel.setFont(new Font("Monaco",Font.ROMAN_BASELINE,30));
+	        glutenFreeLabel.setVisible(false);
+	        foodPlanPanel.add(glutenFreeLabel);
 	}
 }

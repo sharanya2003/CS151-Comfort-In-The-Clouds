@@ -54,6 +54,10 @@ public class GUIdevelopment implements ActionListener{
 	JPanel seatManagerPanel = new JPanel();	
 	JPanel foodPlanPanel = new JPanel();
 
+
+
+	JPanel surveyPanel = new JPanel();
+
 	
 	//components in welcome page
     JLabel welcomePageTitle;
@@ -83,7 +87,48 @@ public class GUIdevelopment implements ActionListener{
 	JButton signUpPageButtonRedirectToLogin;
 	JButton signUpPageButtonRedirectToHome;
 	JLabel signUpPageErrorMessage;
+
 	
+	
+	//components in login page
+	JLabel loginPageHeaderLabel;
+	JLabel loginPageNameLabel;
+	JLabel loginPagePwdLabel;
+	JTextField loginPageNameTextField;
+	JPasswordField loginPagePwdTextField;
+	JButton loginPageButtonRedirectToPlane;
+	JButton loginPageButtonRedirectToHome;
+	JButton newUserSignUpButton;
+	
+	//compontents in survey page
+	private JButton[] ratingButtons;
+    private JPanel buttonPanel;
+    private JPanel commentPanel;
+    private JLabel commentLabel;
+    private JTextArea commentText;
+    private JScrollPane scrollPane;
+    private JButton submitButton;
+    private JButton resetButton;
+
+	
+	//compontents in plane
+	private final MainModel mainModel;
+	private JButton continuetoSurvey;
+	
+	//food plan
+	JButton seatManageButtonRedirectToFoodPlan;
+	JLabel foodPlanBio1;
+	JTextField foodPlanBio1TextField;
+	JLabel foodPlanBio2;
+	JLabel foodPlanBio3;
+	JButton foodPlanButtonRedirectToPlane;
+	JLabel vegLabel;
+    JLabel defaultLabel;
+    JLabel glutenFreeLabel;
+	JButton vegetarian;
+	JButton normalFoodPlan;
+	JButton glutenFree;
+
 	
 	//components in login page
 	JLabel loginPageHeaderLabel;
@@ -286,7 +331,10 @@ public class GUIdevelopment implements ActionListener{
 		loginPageSetUp();
 		seatManagerPageSetUp();	
 		foodPlanPageSetUp();
+
 		survey();
+
+
 	}
 	
 	@Override
@@ -435,6 +483,7 @@ public class GUIdevelopment implements ActionListener{
 	            vegetarian.setEnabled(false);
 	            normalFoodPlan.setEnabled(false);
 	        }
+
 		/// Mohd's Work
 
 		if (ae.getSource() == foodPlanButtonRedirectToPlane) {
@@ -465,6 +514,7 @@ public class GUIdevelopment implements ActionListener{
 
 
 		}
+
 	}
 	
 	
@@ -777,7 +827,11 @@ public class GUIdevelopment implements ActionListener{
 		//Heading
 		foodPlanBio1= new JLabel("Food Plan");
 		foodPlanBio2 = new JLabel("Please select an option:(1) Regular Meal");
+
 		foodPlanBio3 = new JLabel("(2) Vegetarian Meal (3) Gluten Free Meal");
+
+		foodPlanBio3 = new JLabel("(2) Vegetarian Meal (3) Gluten Free Meal");
+
 			
 			foodPlanBio1.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
 			foodPlanBio1.setBounds(120, 50, 800, 90);//30, 50, 800, 90    //120,120,900,90 //(250 , 0, 400, 90);
@@ -844,6 +898,7 @@ public class GUIdevelopment implements ActionListener{
 	        glutenFreeLabel.setFont(new Font("Monaco",Font.ROMAN_BASELINE,30));
 	        glutenFreeLabel.setVisible(false);
 	        foodPlanPanel.add(glutenFreeLabel);
+
 	}
 	public void survey() throws IOException {
 		surveyPanel = new JPanel();
@@ -946,5 +1001,6 @@ public class GUIdevelopment implements ActionListener{
 		returnHomeButton.setForeground(Color.black);
 		returnHomeButton.addActionListener(this);
 		endingMessagePanel.add(returnHomeButton);
+
 	}
 }

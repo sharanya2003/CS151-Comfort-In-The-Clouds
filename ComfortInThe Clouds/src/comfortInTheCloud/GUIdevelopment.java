@@ -89,7 +89,6 @@ public class GUIdevelopment implements ActionListener{
 	JLabel signUpPageErrorMessage;
 
 	
-	
 	//components in login page
 	JLabel loginPageHeaderLabel;
 	JLabel loginPageNameLabel;
@@ -100,20 +99,10 @@ public class GUIdevelopment implements ActionListener{
 	JButton loginPageButtonRedirectToHome;
 	JButton newUserSignUpButton;
 	
-	//compontents in survey page
-	private JButton[] ratingButtons;
-    private JPanel buttonPanel;
-    private JPanel commentPanel;
-    private JLabel commentLabel;
-    private JTextArea commentText;
-    private JScrollPane scrollPane;
-    private JButton submitButton;
-    private JButton resetButton;
 
-	
 	//compontents in plane
 	private final MainModel mainModel;
-	private JButton continuetoSurvey;
+
 	
 	//food plan
 	JButton seatManageButtonRedirectToFoodPlan;
@@ -129,46 +118,13 @@ public class GUIdevelopment implements ActionListener{
 	JButton normalFoodPlan;
 	JButton glutenFree;
 
-	
-	//components in login page
-	JLabel loginPageHeaderLabel;
-	JLabel loginPageNameLabel;
-	JLabel loginPagePwdLabel;
-	JTextField loginPageNameTextField;
-	JPasswordField loginPagePwdTextField;
-	JButton loginPageButtonRedirectToPlane;
-	JButton loginPageButtonRedirectToHome;
-	JButton newUserSignUpButton;
-	
-
-	
-	//compontents in plane
-	private final MainModel mainModel;
-	private JButton continuetoSurvey;
-
-
-
-	//food plan
-	JButton seatManageButtonRedirectToFoodPlan;
-	JLabel foodPlanBio1;
-	JTextField foodPlanBio1TextField;
-	JLabel foodPlanBio2;
-	JLabel foodPlanBio3;
-	JButton foodPlanButtonRedirectToPlane;
-	JLabel vegLabel;
-    JLabel defaultLabel;
-    JLabel glutenFreeLabel;
-	JButton vegetarian;
-	JButton normalFoodPlan;
-	JButton glutenFree;
 
 	// Survey Panel Components
-
 	JButton checkoutButton;
 	JLabel surveyMessage;
 	JLabel commentBelow;
 	JButton submitToSurveyButton;
-	JPanel surveyPanel = new JPanel();
+	//JPanel surveyPanel = new JPanel();
 	JPanel finalPanel;
 	JLabel finalLabel;
 	JTextField surveyComment;

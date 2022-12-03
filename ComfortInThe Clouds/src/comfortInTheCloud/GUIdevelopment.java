@@ -53,7 +53,11 @@ public class GUIdevelopment implements ActionListener{
 	JPanel loginPanel = new JPanel();
 	JPanel seatManagerPanel = new JPanel();	
 	JPanel foodPlanPanel = new JPanel();
+
+
+
 	JPanel surveyPanel = new JPanel();
+
 	
 	//components in welcome page
     JLabel welcomePageTitle;
@@ -83,6 +87,7 @@ public class GUIdevelopment implements ActionListener{
 	JButton signUpPageButtonRedirectToLogin;
 	JButton signUpPageButtonRedirectToHome;
 	JLabel signUpPageErrorMessage;
+
 	
 	
 	//components in login page
@@ -104,6 +109,7 @@ public class GUIdevelopment implements ActionListener{
     private JScrollPane scrollPane;
     private JButton submitButton;
     private JButton resetButton;
+
 	
 	//compontents in plane
 	private final MainModel mainModel;
@@ -124,6 +130,57 @@ public class GUIdevelopment implements ActionListener{
 	JButton glutenFree;
 
 	
+	//components in login page
+	JLabel loginPageHeaderLabel;
+	JLabel loginPageNameLabel;
+	JLabel loginPagePwdLabel;
+	JTextField loginPageNameTextField;
+	JPasswordField loginPagePwdTextField;
+	JButton loginPageButtonRedirectToPlane;
+	JButton loginPageButtonRedirectToHome;
+	JButton newUserSignUpButton;
+	
+
+	
+	//compontents in plane
+	private final MainModel mainModel;
+	private JButton continuetoSurvey;
+
+
+
+	//food plan
+	JButton seatManageButtonRedirectToFoodPlan;
+	JLabel foodPlanBio1;
+	JTextField foodPlanBio1TextField;
+	JLabel foodPlanBio2;
+	JLabel foodPlanBio3;
+	JButton foodPlanButtonRedirectToPlane;
+	JLabel vegLabel;
+    JLabel defaultLabel;
+    JLabel glutenFreeLabel;
+	JButton vegetarian;
+	JButton normalFoodPlan;
+	JButton glutenFree;
+
+	// Survey Panel Components
+
+	JButton checkoutButton;
+	JLabel surveyMessage;
+	JLabel commentBelow;
+	JButton submitToSurveyButton;
+	JPanel surveyPanel = new JPanel();
+	JPanel finalPanel;
+	JLabel finalLabel;
+	JTextField surveyComment;
+
+	JLabel picLabel;
+	JLabel finalPanelLabel;
+	JPanel endingMessagePanel;
+	JLabel returnHomeMessageLabel;
+	JButton returnHomeButton;
+
+
+
 	//constructor
 	public GUIdevelopment() throws IOException {
 		//have welcomePage code here set up as default so when the code runs, it has a base to go off of
@@ -274,6 +331,10 @@ public class GUIdevelopment implements ActionListener{
 		loginPageSetUp();
 		seatManagerPageSetUp();	
 		foodPlanPageSetUp();
+
+		survey();
+
+
 	}
 	
 	@Override
@@ -422,6 +483,38 @@ public class GUIdevelopment implements ActionListener{
 	            vegetarian.setEnabled(false);
 	            normalFoodPlan.setEnabled(false);
 	        }
+
+		/// Mohd's Work
+
+		if (ae.getSource() == foodPlanButtonRedirectToPlane) {
+			surveyPanel.setVisible(true);
+			foodPlanPanel.setVisible(false);
+			surveyPanel.setLayout(null);
+			mainFrame.add(surveyPanel);
+			mainFrame.remove(foodPlanPanel);
+		}
+		if (ae.getSource() == submitToSurveyButton) {
+			finalPanel.setVisible(true);
+			surveyPanel.setVisible(false);
+			mainFrame.add(finalPanel);
+			mainFrame.remove((surveyPanel));
+		}
+
+		if (ae.getSource() == returnHomeButton) {
+			welcomePanel.setVisible(true);
+			finalPanel.setVisible(false);
+			mainFrame.add(welcomePanel);
+			mainFrame.remove(finalPanel);
+			vegLabel.setVisible(false);
+			glutenFreeLabel.setVisible(false);
+			defaultLabel.setVisible(false);
+			normalFoodPlan.setEnabled(true);
+			vegetarian.setEnabled(true);
+			glutenFree.setEnabled(true);
+
+
+		}
+
 	}
 	
 	
@@ -734,7 +827,11 @@ public class GUIdevelopment implements ActionListener{
 		//Heading
 		foodPlanBio1= new JLabel("Food Plan");
 		foodPlanBio2 = new JLabel("Please select an option:(1) Regular Meal");
-		foodPlanBio3 = new JLabel("(2) Vegan Meal (3) Gluten Free Meal");
+
+		foodPlanBio3 = new JLabel("(2) Vegetarian Meal (3) Gluten Free Meal");
+
+		foodPlanBio3 = new JLabel("(2) Vegetarian Meal (3) Gluten Free Meal");
+
 			
 			foodPlanBio1.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
 			foodPlanBio1.setBounds(120, 50, 800, 90);//30, 50, 800, 90    //120,120,900,90 //(250 , 0, 400, 90);
@@ -801,5 +898,109 @@ public class GUIdevelopment implements ActionListener{
 	        glutenFreeLabel.setFont(new Font("Monaco",Font.ROMAN_BASELINE,30));
 	        glutenFreeLabel.setVisible(false);
 	        foodPlanPanel.add(glutenFreeLabel);
+
+	}
+	public void survey() throws IOException {
+		surveyPanel = new JPanel();
+		surveyPanel.setLayout(null);
+		surveyPanel.setSize(780, 610);
+		surveyPanel.setBackground(new Color(0xb992e8));
+
+
+		// Survey label
+
+		surveyMessage = new JLabel("Survey");
+		surveyMessage.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 45));
+		surveyMessage.setBounds(330, 0, 300, 90);
+		surveyPanel.add(surveyMessage);
+
+		// Comment Below Label
+
+		commentBelow = new JLabel("Comment Below: ");
+		commentBelow.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 25));
+		commentBelow.setBounds(200, 80, 300, 200);
+		surveyPanel.add(commentBelow);
+
+
+		// Survey Comment box
+
+
+		surveyComment = new JTextField();
+		surveyComment.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 20));
+		surveyComment.setOpaque(false);
+		surveyComment.setBorder(BorderFactory.createLineBorder(Color.white));
+		surveyComment.setBackground(Color.cyan);
+		surveyComment.setBounds(200, 200, 500, 200);
+		surveyPanel.add(surveyComment);
+
+
+		// Survey Button
+
+		submitToSurveyButton = new JButton("Submit");
+		submitToSurveyButton.setBounds(350, 450, 150, 40);
+		submitToSurveyButton.setBackground(Color.pink);
+		submitToSurveyButton.setForeground(Color.black);
+		submitToSurveyButton.addActionListener(this);
+		surveyPanel.add(submitToSurveyButton);
+
+///     Background Image in the Survey Panel
+//
+//    BufferedImage myPicture = ImageIO.read(new File("image.jpg"));
+//    picLabel = new JLabel(new ImageIcon(myPicture));
+//    picLabel.setLayout(null);
+//    picLabel.setSize(780, 610);
+//    surveyPanel.add(picLabel);
+
+
+		finalPanel = new JPanel();
+		finalPanel.setLayout(null);
+		finalPanel.setSize(780, 610);
+		finalPanel.setBackground(new Color(0xb992e8));
+
+
+		// panel for the final Message
+
+		endingMessagePanel = new JPanel();
+		endingMessagePanel.setLayout(null);
+		endingMessagePanel.setSize(780, 610);
+//        endingMessagePanel.setBackground(Color.cyan);
+		endingMessagePanel.setOpaque(false);
+		finalPanel.add(endingMessagePanel);
+
+
+//    // Image for the Ending panel
+
+//    BufferedImage finalPanelImage = ImageIO.read(new File("finalPanel.jpg"));
+//    finalPanelLabel = new JLabel(new ImageIcon(finalPanelImage));
+//    finalPanelLabel.setLayout(null);
+//    finalPanelLabel.setSize(780, 610);
+//    finalPanel.add(finalPanelLabel);
+
+		// Testing for a button to return home Label
+
+		returnHomeMessageLabel = new JLabel("Want to book More seats?");
+		returnHomeMessageLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 25));
+		returnHomeMessageLabel.setForeground(Color.white);
+		returnHomeMessageLabel.setBounds(200, 200, 600, 200);
+		endingMessagePanel.add(returnHomeMessageLabel);
+
+		// Label Header for last Panel
+
+
+		finalLabel = new JLabel("YOU ARE ALL SET!!!");
+		finalLabel.setFont(new Font("Monaco", Font.ROMAN_BASELINE, 45));
+		finalLabel.setForeground(Color.white);
+		finalLabel.setBounds(150, 100, 600, 90);
+		endingMessagePanel.add(finalLabel);
+
+		// Button to Return Home
+
+		returnHomeButton = new JButton("Home");
+		returnHomeButton.setBounds(300, 350, 150, 40);
+		returnHomeButton.setBackground(Color.pink);
+		returnHomeButton.setForeground(Color.black);
+		returnHomeButton.addActionListener(this);
+		endingMessagePanel.add(returnHomeButton);
+
 	}
 }

@@ -35,6 +35,8 @@ _Team members working on the project presentation and their contributions in det
 Keerthanaa added foodPlan method in the GUIDevelopment class which enables the user to select a food plan of their choice. 
 When the user selects their choice, a message shows up stating their choice. The foodPlan panel also has a button which then leads the user to the survey page.
 
+
+
 _Diagrams_:
 * [Class](https://github.com/sharanya2003/CS151-Comfort-In-The-Clouds/blob/55d126d5e1a8597c6a7b3b0f04a2ffe680492647/diagrams/ComfortInTheClouds-ClassDiag.png) 
 * [Use Case](https://github.com/sharanya2003/CS151-Comfort-In-The-Clouds/blob/main/diagrams/ComfortInTheClouds-UseCaseDiagram.JPG)
@@ -54,3 +56,21 @@ _Operations_:
 * When the user is done selecting their seats, they are then led to the food plan page. The user has the opportunity to select their food preferences such as vegetarian, gluten free or the default food option.
 * Then when the user selects the survey button, they are directed to the survey page where the user can comment about their experience in booking the seat. 
 * The users are redirected to the home page where new users can sign-up/login. The new users can see other user’s seat bookings which prevents them from selecting those seats. 
+
+
+_Snapshot of the running program_:
+* ![WelcomePage](https://user-images.githubusercontent.com/57739452/205567965-f7c8c274-7015-4e89-8882-c67ec6024057.JPG)
+*![SignupPage](https://user-images.githubusercontent.com/57739452/205568001-5dfffdc8-ba68-4066-8dd0-858d534f002a.JPG)
+*![LoginPage](https://user-images.githubusercontent.com/57739452/205568022-c6294c1a-21fe-4de8-ac93-045a6a8aa965.JPG)
+*![SeatManagerPage](https://user-images.githubusercontent.com/57739452/205568054-939e5291-7d9e-46d7-9263-d401e45dc0dd.JPG)
+*![SeatReservationPopUp](https://user-images.githubusercontent.com/57739452/205568069-ec01f31f-98aa-4d87-b34e-fea3aedc2d05.JPG)
+*![FoodPlanPage](https://user-images.githubusercontent.com/57739452/205568139-6a0f9ecd-703b-411d-b5fd-07c5f1f58181.JPG)
+![SurveyPage](https://user-images.githubusercontent.com/57739452/205568154-4cdf7dcf-b82b-4b1b-abe5-2e68c69c4f10.JPG)
+*![ConfirmationPage](https://user-images.githubusercontent.com/57739452/205568174-d30df99b-b269-4f81-be3e-fc7f3f7ded0f.JPG)
+*![User2SigninPage](https://user-images.githubusercontent.com/57739452/205569260-7ee8ef02-1d8b-459c-aa85-2ca5a72a67a4.JPG)
+*![User2LoginPage](https://user-images.githubusercontent.com/57739452/205569285-c997e4cf-e015-44d7-9156-7ac631195179.JPG)
+*![User2SeatManagerPage](https://user-images.githubusercontent.com/57739452/205569313-7da0660f-7291-4a01-aa81-85dd636f91e7.JPG)
+*![User2FoodPlanPage](https://user-images.githubusercontent.com/57739452/205569341-ed66c988-fb97-4d03-81bc-19b14bc723e5.JPG)
+*![User2SurveyPage](https://user-images.githubusercontent.com/57739452/205569366-d12901a7-935f-476b-adf4-53b3c1bfb885.JPG)
+*![User2ConfirmationPage](https://user-images.githubusercontent.com/57739452/205569401-76496a6a-b698-44ee-b1b0-7358f6aa2974.JPG)
+

@@ -94,7 +94,7 @@ _Snapshot of the running program_:
 
 <br /> <br />
 <br />
-References:
+References: <br />
 [1] https://www.youtube.com/watch?v=Kmgo00avvEw&t=1085s&ab_channel=BroCode <br />
 [2] https://code-projects.org/simple-parking-lot-in-javascript-with-source-code/ <br />
 [3]https://stackoverflow.com/questions/17293991/how-to-write-and-read-java-serialized-objects-into-a-file <br />

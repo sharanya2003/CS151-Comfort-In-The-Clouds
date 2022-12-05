@@ -34,9 +34,11 @@ _Team members working on the project presentation and their contributions in det
 
 Keerthanaa was responsible for introducing the application in the presentation. She spoke about the intentions of the application. She also organized the slides 
 and added information regarding the subject.
-</br>
+</br> 
+<br />
 Mohammad was responsible for explaining the functionality, operations of the project and also about the environment they chose and the basis of choosing those environments. He also created multiple speaker notes and slides for the project to become more coherent. 
 </br>
+<br />
 In the project presentation, Sharanya Udupa was in charge of delegating tasks for the rest of the team, and helped them brainstorm what should be added and what shouldn't be added to the slide show presentation. In addition, since she was the main person working on the code for the project, she also took over all the technical details covered in the presentation. This included explaining the different types of Object Oriented Concepts applied in the application (Inheritance, Polymorphism, Abstraction,  Exception Handling, GUI usage, and Design Patterns). Finally, Sharanya organized the slides once all the other teammates completed their tasks so the presentation was more visually appealing and digestible for the audience.
 
 <br /><br />

@@ -95,10 +95,10 @@ _Snapshot of the running program_:
 <br /> <br />
 <br />
 References:
-[1] https://www.youtube.com/watch?v=Kmgo00avvEw&t=1085s&ab_channel=BroCode
-[2] https://code-projects.org/simple-parking-lot-in-javascript-with-source-code/
-[3]https://stackoverflow.com/questions/17293991/how-to-write-and-read-java-serialized-objects-into-a-file
-[4]https://stackoverflow.com/questions/22638926/how-to-put-hover-effect-on-jbutton
-[5]https://stackoverflow.com/questions/11165323/how-do-i-use-gridbaylayout-in-java-swing-to-generate-this-particular-image-in
+[1] https://www.youtube.com/watch?v=Kmgo00avvEw&t=1085s&ab_channel=BroCode <br />
+[2] https://code-projects.org/simple-parking-lot-in-javascript-with-source-code/ <br />
+[3]https://stackoverflow.com/questions/17293991/how-to-write-and-read-java-serialized-objects-into-a-file <br />
+[4]https://stackoverflow.com/questions/22638926/how-to-put-hover-effect-on-jbutton <br />
+[5]https://stackoverflow.com/questions/11165323/how-do-i-use-gridbaylayout-in-java-swing-to-generate-this-particular-image-in <br />
 
 

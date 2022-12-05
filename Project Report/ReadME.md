@@ -51,13 +51,6 @@ Issue: When creating the Seat Management application, one of the main issues I e
 Steps to run your code 
 <br />
 On GitHub.com, navigate to the main page of the CS151-Comfort-In-The-Clouds repository. Click the Code button at the top right hand side of the page and copy the HTTPS link given to clone the repository. Using the Command Prompt or Terminal to clone the project onto your local device. Then, open up any IDE that runs Java (we used Eclipse) into the folder that holds the cloned code and run the application!
-<br />
- References:
-[1] https://www.youtube.com/watch?v=Kmgo00avvEw&t=1085s&ab_channel=BroCode
-[2] https://code-projects.org/simple-parking-lot-in-javascript-with-source-code/
-[3]https://stackoverflow.com/questions/17293991/how-to-write-and-read-java-serialized-objects-into-a-file
-[4]https://stackoverflow.com/questions/22638926/how-to-put-hover-effect-on-jbutton
-[5]https://stackoverflow.com/questions/11165323/how-do-i-use-gridbaylayout-in-java-swing-to-generate-this-particular-image-in
 
 
 <br /><br />
@@ -97,4 +90,15 @@ _Snapshot of the running program_:
 *![User2FoodPlanPage](https://user-images.githubusercontent.com/57739452/205569341-ed66c988-fb97-4d03-81bc-19b14bc723e5.JPG)
 *![User2SurveyPage](https://user-images.githubusercontent.com/57739452/205569366-d12901a7-935f-476b-adf4-53b3c1bfb885.JPG)
 *![User2ConfirmationPage](https://user-images.githubusercontent.com/57739452/205569401-76496a6a-b698-44ee-b1b0-7358f6aa2974.JPG)
+
+
+<br /> <br />
+<br />
+References:
+[1] https://www.youtube.com/watch?v=Kmgo00avvEw&t=1085s&ab_channel=BroCode
+[2] https://code-projects.org/simple-parking-lot-in-javascript-with-source-code/
+[3]https://stackoverflow.com/questions/17293991/how-to-write-and-read-java-serialized-objects-into-a-file
+[4]https://stackoverflow.com/questions/22638926/how-to-put-hover-effect-on-jbutton
+[5]https://stackoverflow.com/questions/11165323/how-do-i-use-gridbaylayout-in-java-swing-to-generate-this-particular-image-in
+
 

@@ -21,6 +21,8 @@ _Team members working on the proposal and their contributions in detail_
 Keerthanaa gave inputs on ideas about airline seat reservation and researched github readme writing and formatting syntax which was made use during the proposal, 
 and Project report. Keerthanaa also created the sequence diagram and was responsible for writing the ReadMe file for the descriptions of all the UML diagrams. 
 <br/>
+Mohammad gave inputs on how the food plan could be implemented, he also suggested the seats being in a gridlayout. He was responsible for suggesting java swing to use for the front end. In terms of UML diagrams Mohammad worked on the state-UML diagram which exhibits the idea of how the project actually runs and what would happen if the project receives an error. Besides the state- UML diagram, Mohammad also helped to create Class-UML diagrams and UseCase-UML diagrams as well.  
+<br/>
 In the proposal, Sharanya was specifically in charge of gathering in the teammates ideas and developing it furthermore design wise and coding wise. In addition she came up with other features developed in the final product. One of these features was the concept of seat value. Each seat had a different price value depending on whether it was a first class seat, a business class seat, a window seat, or a long-leg aisle seat. In order to put the airline customers and the airline employer’s needs first, we wanted to design an application that displays and incorporates all necessary information for the users in order for a smoother and convenient flight experience. As a result, Sharanya incorporated my team member’s ideas for the application by flushing out step by step what features and pages the user would be exposed to when interacting with the application  starting from the welcome page all the way to the survey page. In terms of UML diagrams, Sharanya worked on the Class Diagrams where we described the structure of the airplane seat manager. The class diagram layed out how we will break down and organize the application. For example, the Seat class was made to be an abstract class that holds all the seat information, which is inherited by the Business Seat, First Seat, and Economy Seat so we will be able to construct organized and concise polymorphic code. Next, Sharanya also worked on the Use Case Diagram which is when you organize and categorize all the different uses for a product, and what part of the product would be used by the different types of users (customers and employees) and what information the application would receive and store.
 
 <br /><br />
@@ -31,6 +33,8 @@ _Team members working on the project presentation and their contributions in det
 Keerthanaa was responsible for introducing the application in the presentation. She spoke about the intentions of the application. She also organized the slides 
 and added information regarding the subject.
 </br>
+Mohammad was responsible for explaining the functionality, operations of the project and also about the environment they chose and the basis of choosing those environments. He also created multiple speaker notes and slides for the project to become more coherent. 
+</br>
 In the project presentation, Sharanya Udupa was in charge of delegating tasks for the rest of the team, and helped them brainstorm what should be added and what shouldn't be added to the slide show presentation. In addition, since she was the main person working on the code for the project, she also took over all the technical details covered in the presentation. This included explaining the different types of Object Oriented Concepts applied in the application (Inheritance, Polymorphism, Abstraction,  Exception Handling, GUI usage, and Design Patterns). Finally, Sharanya organized the slides once all the other teammates completed their tasks so the presentation was more visually appealing and digestible for the audience.
 
 <br /><br />
@@ -38,6 +42,8 @@ Team members working on the project (code) and report. Mention their contributio
 </br><br />
 Keerthanaa added foodPlan method in the GUIDevelopment class which enables the user to select a food plan of their choice. 
 When the user selects their choice, a message shows up stating their choice. The foodPlan panel also has a button which then leads the user to the survey page.
+<br />
+Mohammad added the survey method in the GUIDevelopment class which enables the users to write a comment about the application and proceed to the final panel where they receive a confirmation of their seat being booked and also have the option to SignUp / logIn again for booking more seats for the same user or different user. He also worked on multiple edge cases as well.
 <br />
 Sharanya worked on all the code prior to the project presentation (all the content covered in the project presentation). This includes the welcome page, the sign up page, the sign in page, the airplane seat manager page, and the specific airplane seat information displayed in a popup browser. In addition to the UI for all of these pages, Sharanya developed the OOP/ backend part of the application. For example, Sharanya created a Person class that contained all the information the user entered in the Signup/login information and saved it into a file using serializable. Next, to create a functioning airplane seat plane that held different perks and drawbacks for each seat, Sharanya had to implement the majority of the OOP concepts to be able to create organized, concise, and digestible code. She implemented the Factory Design Pattern and the MVC Design Pattern which will be later covered in detail in the report. Sharanya used the MVC design pattern to make the popup browser appear and change the color of the seat when the user interacts a certain way with the application. The popup browser displayed important information regarding the seat like the name of the person who booked the seat (visible depending on if they successfully purchased that seat or not), the pricing of the seat and the reason behind the pricing (type of class, window, and long-leg), the food plan (no interactive food plan choice during the time of the presentation), the carry-on, and other prevalent information. Finally, Sharanya used the Factory Design pattern to visually construct the 2-D array of seat objects and to create a specific seat depending on the positioning of the seat (determined by the row and column of the seat). In the Project Report, Sharanya was in charge of writing her own contributions to the project (proposal, project presentation, and code), problem/issue, steps to running the code, and the references used when creating Comfort In Clouds.
 
@@ -47,6 +53,23 @@ Problem/ issue
 Problem: The main problem statement for this application was to create the seat manager application (the 2-D array of buttons that represent a specific instance of a Seat class. The type of seat class: BusinessSeat, EconomySeat, and FirstSeat, depended on the location of the seats which were properly displayed using the GridBagLayout feature in the GUIDevelopment class. In addition to the type of seat, the application had to store other information like weather its a window seat or a long-leg, food plan, carry-on, and the customer’s name and pin if the seat was taken. This problem was easily resolved and much more obvious to conceptualize when using the Factory Design Pattern. The Factory design pattern allowed me to make the subclasses (BusinessSeat, EconomySeat, and FirstSeat) choose the type of object to be created, allowed for loose-coupling so I could give the specific information about the Seat when I had the data ready to give it, and finally it let me push many of the logic in some classes, allowing me to create simplistic and literal code in other class. We broke up our application into a Factory method by first creating an AirplaneBoard which creates seats using the length of the GUI board and calls the SeatFactory class that makes each seat unique depending on position. The AirplaneBoard class is only an eight-liner code, which further shows the simplicity I was able to create when using the Factory method. Next,  the SeatFactory class creates a desired seat depending on the position of the seat (row and column). Doing so hides the logic of object creation from the user. Finally, the Seat class is an abstract class that delegates all the properties that make a Seat unique.
 <br />
 Issue: When creating the Seat Management application, one of the main issues I encountered was how to change the user interface (seat button turns red when reserved and seat button turns back to green when canceled) depending on how the user interacted with the application. I then realized, this was possible and much more organized the frontend and the backend using MVC Design Pattern (Model View Control). The Model only contains the application data. In other words, it contains all the logic for which seat gets which amenities (price and luggage amount, etc) is made in the Seat Factory and Seat class. The View presents Model’s data to the user using GUI. In this case, the View turns red if it's reserved, stays green if it's open, and turns from red to green if it is canceled. Finally, the Control part of the MVC makes mutations of the object or class. In this case, Control is manipulating the current state of a seat: if it is reserved or not reserved and notifies the rest about the reservation, which is mainly found in the BaseModel and SeatInfo classes.
+
+<br /><br />
+assumptions / operating environments / intended usage
+<br />
+Assumptions: our assumption was to create a user-friendly airplane seat management system.
+<br />
+Operating environments: for the front end, we have used Java swing and for the back end we have used Java. We chose java swing because java swing is a part of java foundation class, which is why it was easier for us to combine the front and the back end.
+<br />
+Intended usage:
+* Log In/Sign-up
+* Choose comfort priority
+* Choose seating
+* Proceed to food plan
+* Fill out Customer Review (Comments)
+
+
+
 <br /><br />
 Steps to run your code 
 <br />
@@ -59,6 +82,19 @@ _Diagrams_:
 * [Use Case](https://github.com/sharanya2003/CS151-Comfort-In-The-Clouds/blob/main/diagrams/ComfortInTheClouds-UseCaseDiagram.JPG)
 * [State](https://github.com/sharanya2003/CS151-Comfort-In-The-Clouds/blob/main/diagrams/ComfortInTheClouds-StateDiagram.png) 
 * [Sequence](https://github.com/sharanya2003/CS151-Comfort-In-The-Clouds/blob/main/diagrams/ComfortInTheClouds-SequenceDiagram.png)
+
+
+<br /><br />
+Functionality 
+<br />
+* Our solution assists users to choose their desired seat with option to choose their desired food plan
+* For the sake of security ,we make our users type their passwords while booking each seat, in order to confirm their reservation.
+* Users also have the option to choose food plans after booking their seats.
+* If the user decides to change his/her mind regarding the seat reservation, He/she can navigate back to the seatManager panel and cancel the seat reservation.
+* Users are encouraged to leave a comment about their experience and recommendations, which will help us to improve our application.
+* Finally, the user receives a confirmation of their seat reservation and has the option to book more seats if they desire.
+<br />
+
 
 
 _Operations_:

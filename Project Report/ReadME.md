@@ -14,21 +14,32 @@
 
 <br />
 _Team members working on the proposal and their contributions in detail_
+
 </br>
+
 Keerthanaa gave inputs on ideas about airline seat reservation and researched github readme writing and formatting syntax which was made use during the proposal, 
 and Project report. Keerthanaa also created the sequence diagram and was responsible for writing the ReadMe file for the descriptions of all the UML diagrams. 
 
 <br />
 _Team members working on the project presentation and their contributions in detail_
+
 </br>
+
 Keerthanaa was responsible for introducing the application in the presentation. She spoke about the intentions of the application. She also organized the slides 
 and added information regarding the subject.
 
 <br />
 _Team members working on the project presentation and their contributions in detail_
+
 </br>
 Keerthanaa added foodPlan method in the GUIDevelopment class which enables the user to select a food plan of their choice. 
 When the user selects their choice, a message shows up stating their choice. The foodPlan panel also has a button which then leads the user to the survey page.
+
+_Diagrams_:
+* [Class](https://github.com/sharanya2003/CS151-Comfort-In-The-Clouds/blob/55d126d5e1a8597c6a7b3b0f04a2ffe680492647/diagrams/ComfortInTheClouds-ClassDiag.png) 
+* [Use Case](https://github.com/sharanya2003/CS151-Comfort-In-The-Clouds/blob/main/diagrams/ComfortInTheClouds-UseCaseDiagram.JPG)
+* [State](https://github.com/sharanya2003/CS151-Comfort-In-The-Clouds/blob/main/diagrams/ComfortInTheClouds-StateDiagram.png) 
+* [Sequence](https://github.com/sharanya2003/CS151-Comfort-In-The-Clouds/blob/main/diagrams/ComfortInTheClouds-SequenceDiagram.png)
 
 
 _Operations_:

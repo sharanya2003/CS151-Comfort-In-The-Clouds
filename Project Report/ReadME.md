@@ -61,7 +61,7 @@ Problem Creating the Airplane Board and Solution: The main problem statement for
 Issue Changing the State of a Seat and Solution: When creating the Seat Management application, one of the main issues I encountered was how to change the user interface (seat button turns red when reserved and seat button turns back to green when canceled) depending on how the user interacted with the application. I then realized, this was possible and much more organized the frontend and the backend using MVC Design Pattern (Model View Control). The Model only contains the application data. In other words, it contains all the logic for which seat gets which amenities (price and luggage amount, etc) is made in the Seat Factory and Seat class. The View presents Model’s data to the user using GUI. In this case, the View turns red if it's reserved, stays green if it's open, and turns from red to green if it is canceled. Finally, the Control part of the MVC makes mutations of the object or class. In this case, Control is manipulating the current state of a seat: if it is reserved or not reserved and notifies the rest about the reservation, which is mainly found in the BaseModel and SeatInfo classes. The BaseModel class held methods like dispath() and add() which alerted the rest of the application (like the UI) on a add or change to a specific seat, so the other parts can react accordingly. For example, if there was a cancelation, dispath() will alert that you need to change the seat color from green to red and forget the user information allocated with that seat. Next, the SeatInfo class held methods that were in charge of direct manipulation to the Seat information. Specifically, the reserve() and cancel() methods had the logic of how a seat should react when the "Reserved" button is clicked versus when a "Cancel" button is clicked
 
 <br /><br />
-assumptions / operating environments / intended usage
+_assumptions / operating environments / intended usage_
 <br />
 <br />
 Assumptions: our assumption was to create a user-friendly airplane seat management system.
@@ -70,7 +70,7 @@ Assumptions: our assumption was to create a user-friendly airplane seat manageme
 Operating environments: for the front end, we have used Java swing and for the back end we have used Java. We chose java swing because java swing is a part of java foundation class, which is why it was easier for us to combine the front and the back end.
 <br />
 <br />
-Intended usage:
+_Intended usage_:
 * Log In/Sign-up
 * Choose comfort priority
 * Choose seating
@@ -80,7 +80,7 @@ Intended usage:
 
 
 <br /><br />
-Steps to run your code 
+_Steps to run your code_: 
 <br />
 On GitHub.com, navigate to the main page of the CS151-Comfort-In-The-Clouds repository. Click the Code button at the top right hand side of the page and copy the HTTPS link given to clone the repository. Using the Command Prompt or Terminal to clone the project onto your local device. Then, open up any IDE that runs Java (we used Eclipse) into the folder that holds the cloned code and run the application!
 
@@ -94,7 +94,7 @@ _Diagrams_:
 
 
 <br /><br />
-Functionality 
+_Functionality_:
 <br />
 * Our solution assists users to choose their desired seat with option to choose their desired food plan
 * For the sake of security ,we make our users type their passwords while booking each seat, in order to confirm their reservation.
@@ -121,25 +121,25 @@ _Operations_:
 
 
 _Snapshot of the running program_:
-* ![WelcomePage](https://user-images.githubusercontent.com/57739452/205567965-f7c8c274-7015-4e89-8882-c67ec6024057.JPG)
-*![SignupPage](https://user-images.githubusercontent.com/57739452/205568001-5dfffdc8-ba68-4066-8dd0-858d534f002a.JPG)
-*![LoginPage](https://user-images.githubusercontent.com/57739452/205568022-c6294c1a-21fe-4de8-ac93-045a6a8aa965.JPG)
-*![SeatManagerPage](https://user-images.githubusercontent.com/57739452/205568054-939e5291-7d9e-46d7-9263-d401e45dc0dd.JPG)
-*![SeatReservationPopUp](https://user-images.githubusercontent.com/57739452/205568069-ec01f31f-98aa-4d87-b34e-fea3aedc2d05.JPG)
-*![FoodPlanPage](https://user-images.githubusercontent.com/57739452/205568139-6a0f9ecd-703b-411d-b5fd-07c5f1f58181.JPG)
+![WelcomePage](https://user-images.githubusercontent.com/57739452/205567965-f7c8c274-7015-4e89-8882-c67ec6024057.JPG)
+![SignupPage](https://user-images.githubusercontent.com/57739452/205568001-5dfffdc8-ba68-4066-8dd0-858d534f002a.JPG)
+![LoginPage](https://user-images.githubusercontent.com/57739452/205568022-c6294c1a-21fe-4de8-ac93-045a6a8aa965.JPG)
+![SeatManagerPage](https://user-images.githubusercontent.com/57739452/205568054-939e5291-7d9e-46d7-9263-d401e45dc0dd.JPG)
+![SeatReservationPopUp](https://user-images.githubusercontent.com/57739452/205568069-ec01f31f-98aa-4d87-b34e-fea3aedc2d05.JPG)
+![FoodPlanPage](https://user-images.githubusercontent.com/57739452/205568139-6a0f9ecd-703b-411d-b5fd-07c5f1f58181.JPG)
 ![SurveyPage](https://user-images.githubusercontent.com/57739452/205568154-4cdf7dcf-b82b-4b1b-abe5-2e68c69c4f10.JPG)
-*![ConfirmationPage](https://user-images.githubusercontent.com/57739452/205568174-d30df99b-b269-4f81-be3e-fc7f3f7ded0f.JPG)
-*![User2SigninPage](https://user-images.githubusercontent.com/57739452/205569260-7ee8ef02-1d8b-459c-aa85-2ca5a72a67a4.JPG)
-*![User2LoginPage](https://user-images.githubusercontent.com/57739452/205569285-c997e4cf-e015-44d7-9156-7ac631195179.JPG)
-*![User2SeatManagerPage](https://user-images.githubusercontent.com/57739452/205569313-7da0660f-7291-4a01-aa81-85dd636f91e7.JPG)
-*![User2FoodPlanPage](https://user-images.githubusercontent.com/57739452/205569341-ed66c988-fb97-4d03-81bc-19b14bc723e5.JPG)
-*![User2SurveyPage](https://user-images.githubusercontent.com/57739452/205569366-d12901a7-935f-476b-adf4-53b3c1bfb885.JPG)
-*![User2ConfirmationPage](https://user-images.githubusercontent.com/57739452/205569401-76496a6a-b698-44ee-b1b0-7358f6aa2974.JPG)
+![ConfirmationPage](https://user-images.githubusercontent.com/57739452/205568174-d30df99b-b269-4f81-be3e-fc7f3f7ded0f.JPG)
+![User2SigninPage](https://user-images.githubusercontent.com/57739452/205569260-7ee8ef02-1d8b-459c-aa85-2ca5a72a67a4.JPG)
+![User2LoginPage](https://user-images.githubusercontent.com/57739452/205569285-c997e4cf-e015-44d7-9156-7ac631195179.JPG)
+![User2SeatManagerPage](https://user-images.githubusercontent.com/57739452/205569313-7da0660f-7291-4a01-aa81-85dd636f91e7.JPG)
+![User2FoodPlanPage](https://user-images.githubusercontent.com/57739452/205569341-ed66c988-fb97-4d03-81bc-19b14bc723e5.JPG)
+![User2SurveyPage](https://user-images.githubusercontent.com/57739452/205569366-d12901a7-935f-476b-adf4-53b3c1bfb885.JPG)
+![User2ConfirmationPage](https://user-images.githubusercontent.com/57739452/205569401-76496a6a-b698-44ee-b1b0-7358f6aa2974.JPG)
 
 
 <br /> <br />
 <br />
-References: <br />
+_References_: <br />
 [1] https://www.youtube.com/watch?v=Kmgo00avvEw&t=1085s&ab_channel=BroCode <br />
 [2] https://code-projects.org/simple-parking-lot-in-javascript-with-source-code/ <br />
 [3]https://stackoverflow.com/questions/17293991/how-to-write-and-read-java-serialized-objects-into-a-file <br />
@@ -147,3 +147,4 @@ References: <br />
 [5]https://stackoverflow.com/questions/11165323/how-do-i-use-gridbaylayout-in-java-swing-to-generate-this-particular-image-in <br />
 
 
+☁ ☁ ☁
